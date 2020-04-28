@@ -1,15 +1,54 @@
+.Item {
+  box-sizing: border-box;
+  border-block-end: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 48px;
+  padding-inline-start: 16px;
+  /* padding-block-start: 1px;
+  padding-block-end: 1px; */
+
+  background-color: white;
+}
+
+.ItemCompleted {
+  composes: Item;
+
+  background-color: #fafafa;
+}
+
+.field {
+  border: none;
+  flex-grow: 1;
+  height: 100%;
+
+  background-color: transparent;
+
+  font-size: 16px;
+}
+
+.textCompleted {
+  composes: field;
+  color: lightgray;
+}
+
 .button {
-  height: 24px;
-  width: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  height: 48px;
+  width: 32px;
+  padding: 0;
 
-  background-color: tomato;
+  background-color: transparent;
 }
 
-.buttonCompleted {
-  composes: button;
-  background-color: lightgreen;
+.Checked {
+  fill: #ddd;
 }
 
-.awesome {
-  color: red;
+.Unchecked {
+  fill: #aaa;
 }

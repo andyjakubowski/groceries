@@ -5,6 +5,7 @@
 }
 
 .AppHeader {
+  border-block-end: 4px dashed tomato;
   display: flex;
   justify-content: center;
   align-items: center;
