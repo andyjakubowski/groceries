@@ -1,24 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import ItemList from "./ItemList";
 
 function App() {
+  const data = {
+    items: [
+      {
+        text: "Apples",
+        isCompleted: false,
+      },
+      {
+        text: "Oranges",
+        isCompleted: false,
+      },
+    ],
+    completed: [
+      {
+        text: "Eggs",
+        isCompleted: true,
+      },
+      {
+        text: "Yoghurt",
+        isCompleted: true,
+      },
+    ],
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header className="AppHeader">
+        <h1>Groceries</h1>
       </header>
+      <ItemList items={data.items} />
+      <ItemList items={data.completed} />
     </div>
   );
 }

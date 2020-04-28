@@ -1,0 +1,15 @@
+.button {
+  height: 24px;
+  width: 24px;
+
+  background-color: tomato;
+}
+
+.buttonCompleted {
+  composes: button;
+  background-color: lightgreen;
+}
+
+.awesome {
+  color: red;
+}
