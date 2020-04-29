@@ -24,12 +24,6 @@ const data = {
       text: "Yoghurt",
       isCompleted: true,
     },
-    {
-      id: 1000,
-      orderId: 3,
-      text: "",
-      isCompleted: false,
-    },
   ],
 };
 
