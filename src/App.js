@@ -1,36 +1,10 @@
 import React from "react";
 import "./App.css";
 import ItemList from "./ItemList";
+import { arrayLast } from "./utilities";
+import data from "./seedData";
 
-const initialState = {
-  items: [
-    {
-      id: 1,
-      text: "Apples",
-      isCompleted: false,
-    },
-    {
-      id: 2,
-      text: "Oranges",
-      isCompleted: false,
-    },
-    {
-      id: 3,
-      text: "",
-      isCompleted: false,
-    },
-    {
-      id: 4,
-      text: "Eggs",
-      isCompleted: true,
-    },
-    {
-      id: 5,
-      text: "Yoghurt",
-      isCompleted: true,
-    },
-  ],
-};
+const initialState = data;
 
 class App extends React.Component {
   constructor(props) {
@@ -56,12 +30,26 @@ class App extends React.Component {
     });
   }
 
-  handleCheckClick({ id }) {
+  handleCheckClick({ id, isCompleted }) {
+    const orderIds = this.state.items
+      .filter((item) => item.isCompleted === !isCompleted)
+      .map((item) => item.orderId);
+    let orderId;
+
+    if (orderIds.length > 0) {
+      orderId = isCompleted
+        ? Math.max(...orderIds) + 1
+        : Math.min(...orderIds) - 1;
+    } else {
+      orderId = 0;
+    }
+
     this.setState({
       items: this.state.items.map((item) => {
         if (item.id === id) {
           return Object.assign({}, item, {
             isCompleted: !item.isCompleted,
+            orderId,
           });
         } else {
           return item;
@@ -71,8 +59,12 @@ class App extends React.Component {
   }
 
   render() {
-    const items = this.state.items.filter((item) => !item.isCompleted);
-    const completed = this.state.items.filter((item) => item.isCompleted);
+    const items = this.state.items
+      .filter((item) => !item.isCompleted)
+      .sort((itemA, itemB) => itemA.orderId - itemB.orderId);
+    const completed = this.state.items
+      .filter((item) => item.isCompleted)
+      .sort((itemA, itemB) => itemA.orderId - itemB.orderId);
 
     return (
       <div className="App">

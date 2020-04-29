@@ -13,6 +13,7 @@ function Item(props) {
   const handleCheckClick = (e) =>
     props.onCheckClick({
       id: props.id,
+      isCompleted: props.isCompleted,
     });
 
   const itemClassName = props.isCompleted ? styles.ItemCompleted : styles.Item;
