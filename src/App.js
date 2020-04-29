@@ -1,8 +1,8 @@
 import React from "react";
 import "./App.css";
 import ItemList from "./ItemList";
-import { arrayLast } from "./utilities";
 import data from "./seedData";
+import { v4 as uuid } from "uuid";
 
 const initialState = data;
 
@@ -12,8 +12,32 @@ class App extends React.Component {
 
     this.state = initialState;
 
+    this.handleAddItemClick = this.handleAddItemClick.bind(this);
     this.handleValueChange = this.handleValueChange.bind(this);
     this.handleCheckClick = this.handleCheckClick.bind(this);
+  }
+
+  handleAddItemClick() {
+    const orderIds = this.state.items
+      .filter((item) => !item.isCompleted)
+      .map((item) => item.orderId);
+
+    let orderId;
+
+    if (orderIds.length > 0) {
+      orderId = Math.max(...orderIds) + 1;
+    } else {
+      orderId = 0;
+    }
+
+    this.setState({
+      items: this.state.items.concat({
+        orderId,
+        id: uuid(),
+        text: "",
+        isCompleted: false,
+      }),
+    });
   }
 
   handleValueChange({ id, text }) {
@@ -76,6 +100,9 @@ class App extends React.Component {
           onValueChange={this.handleValueChange}
           onCheckClick={this.handleCheckClick}
         />
+        <AddItemButton onClick={this.handleAddItemClick}>
+          Add new item
+        </AddItemButton>
         <ItemList
           items={completed}
           onValueChange={this.handleValueChange}
@@ -84,6 +111,10 @@ class App extends React.Component {
       </div>
     );
   }
+}
+
+function AddItemButton(props) {
+  return <button onClick={props.onClick}>{props.children}</button>;
 }
 
 export default App;
