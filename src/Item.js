@@ -4,17 +4,25 @@ import { ReactComponent as Checked } from "./checked.svg";
 import { ReactComponent as Unchecked } from "./unchecked.svg";
 
 function Item(props) {
+  const handleValueChange = (e) =>
+    props.onValueChange({
+      id: props.id,
+      text: e.target.value,
+    });
+
+  const handleCheckClick = (e) =>
+    props.onCheckClick({
+      id: props.id,
+    });
+
   const itemClassName = props.isCompleted ? styles.ItemCompleted : styles.Item;
-  const checkBoxClassName = props.isCompleted
-    ? styles.checkBoxCompleted
-    : styles.checkBox;
   const fieldClassName = props.isCompleted
     ? styles.textCompleted
     : styles.field;
 
   return (
     <li className={itemClassName}>
-      <button className={styles.button}>
+      <button className={styles.button} onClick={handleCheckClick}>
         {props.isCompleted ? (
           <Checked className={styles.Checked} />
         ) : (
@@ -25,7 +33,7 @@ function Item(props) {
         className={fieldClassName}
         type="text"
         value={props.text}
-        onChange={props.onChange}
+        onChange={handleValueChange}
         disabled={props.isCompleted ? true : false}
       ></input>
     </li>

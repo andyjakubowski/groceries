@@ -7,10 +7,12 @@ function ItemList(props) {
     <ul className={styles.ItemList}>
       {props.items.map((item) => (
         <Item
-          key={item.text}
+          key={item.id}
           text={item.text}
           isCompleted={item.isCompleted}
-          onChange={() => console.log("click")}
+          onValueChange={props.onValueChange}
+          onCheckClick={props.onCheckClick}
+          id={item.id}
         ></Item>
       ))}
     </ul>

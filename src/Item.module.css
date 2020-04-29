@@ -15,7 +15,7 @@
 .ItemCompleted {
   composes: Item;
 
-  background-color: #fafafa;
+  /* background-color: #fafafa; */
 }
 
 .field {
@@ -30,7 +30,7 @@
 
 .textCompleted {
   composes: field;
-  color: lightgray;
+  /* color: lightgray; */
 }
 
 .button {
@@ -46,7 +46,7 @@
 }
 
 .Checked {
-  fill: #ddd;
+  fill: #aaa;
 }
 
 .Unchecked {
