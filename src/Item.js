@@ -16,6 +16,8 @@ function Item(props) {
       isCompleted: props.isCompleted,
     });
 
+  const handleInputBlur = () => props.onBlur({ id: props.id });
+
   const itemClassName = props.isCompleted ? styles.ItemCompleted : styles.Item;
   const fieldClassName = props.isCompleted
     ? styles.textCompleted
@@ -36,6 +38,8 @@ function Item(props) {
         value={props.text}
         onChange={handleValueChange}
         disabled={props.isCompleted ? true : false}
+        autoFocus={props.isOpen}
+        onBlur={handleInputBlur}
       ></input>
     </li>
   );

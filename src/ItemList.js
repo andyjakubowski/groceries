@@ -13,6 +13,8 @@ function ItemList(props) {
           onValueChange={props.onValueChange}
           onCheckClick={props.onCheckClick}
           id={item.id}
+          isOpen={item.isOpen}
+          onBlur={props.onBlur}
         ></Item>
       ))}
     </ul>

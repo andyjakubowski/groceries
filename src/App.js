@@ -6,6 +6,18 @@ import { v4 as uuid } from "uuid";
 
 const initialState = data;
 
+function newItem({ orderId, isOpen }) {
+  const item = {
+    orderId,
+    isOpen,
+    id: uuid(),
+    text: "",
+    isCompleted: false,
+  };
+
+  return item;
+}
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -15,6 +27,7 @@ class App extends React.Component {
     this.handleAddItemClick = this.handleAddItemClick.bind(this);
     this.handleValueChange = this.handleValueChange.bind(this);
     this.handleCheckClick = this.handleCheckClick.bind(this);
+    this.handleItemBlur = this.handleItemBlur.bind(this);
   }
 
   handleAddItemClick() {
@@ -30,12 +43,23 @@ class App extends React.Component {
       orderId = 0;
     }
 
+    const item = newItem({ orderId, isOpen: true });
+
     this.setState({
-      items: this.state.items.concat({
-        orderId,
-        id: uuid(),
-        text: "",
-        isCompleted: false,
+      items: this.state.items.concat(item),
+    });
+  }
+
+  handleItemBlur({ id }) {
+    this.setState({
+      items: this.state.items.map((item) => {
+        if (item.id === id) {
+          return Object.assign({}, item, {
+            isOpen: false,
+          });
+        } else {
+          return item;
+        }
       }),
     });
   }
@@ -99,6 +123,7 @@ class App extends React.Component {
           items={items}
           onValueChange={this.handleValueChange}
           onCheckClick={this.handleCheckClick}
+          onBlur={this.handleItemBlur}
         />
         <AddItemButton onClick={this.handleAddItemClick}>
           Add new item
@@ -107,6 +132,7 @@ class App extends React.Component {
           items={completed}
           onValueChange={this.handleValueChange}
           onCheckClick={this.handleCheckClick}
+          onBlur={this.handleItemBlur}
         />
       </div>
     );
