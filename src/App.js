@@ -127,42 +127,22 @@ class App extends React.Component {
   }
 
   render() {
-    const items = this.state.items
-      .filter((item) => !item.isCompleted)
-      .sort((itemA, itemB) => itemA.orderId - itemB.orderId);
-    const completed = this.state.items
-      .filter((item) => item.isCompleted)
-      .sort((itemA, itemB) => itemA.orderId - itemB.orderId);
-
     return (
       <div className="App">
         <header className="AppHeader">
           <h1>Groceries</h1>
         </header>
         <ItemList
-          items={items}
+          items={this.state.items}
           onValueChange={this.handleValueChange}
           onCheckClick={this.handleCheckClick}
           onBlur={this.handleItemBlur}
           onInputEnter={this.handleInputEnter}
-        />
-        <AddItemButton onClick={this.handleAddItemClick}>
-          Add new item
-        </AddItemButton>
-        <ItemList
-          items={completed}
-          onValueChange={this.handleValueChange}
-          onCheckClick={this.handleCheckClick}
-          onBlur={this.handleItemBlur}
-          onInputEnter={this.handleInputEnter}
+          onAddItemClick={this.handleAddItemClick}
         />
       </div>
     );
   }
-}
-
-function AddItemButton(props) {
-  return <button onClick={props.onClick}>{props.children}</button>;
 }
 
 export default App;
