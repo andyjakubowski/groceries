@@ -1,10 +1,14 @@
 import React from "react";
 import "./App.css";
 import ItemList from "./ItemList";
-import data from "./seedData";
+import seedData from "./seedData";
 import { v4 as uuid } from "uuid";
 
-const initialState = data;
+const LOCAL_STORAGE_KEY = "groceries";
+const getData = () =>
+  JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY)) || seedData;
+const saveData = (data) =>
+  window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
 
 function newItem({ orderId, isOpen }) {
   const item = {
@@ -22,13 +26,17 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = initialState;
+    this.state = getData();
 
     this.handleAddItemClick = this.handleAddItemClick.bind(this);
     this.handleValueChange = this.handleValueChange.bind(this);
     this.handleCheckClick = this.handleCheckClick.bind(this);
     this.handleItemBlur = this.handleItemBlur.bind(this);
     this.handleInputEnter = this.handleInputEnter.bind(this);
+  }
+
+  componentDidUpdate() {
+    saveData(this.state);
   }
 
   handleAddItemClick() {
