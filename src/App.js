@@ -29,6 +29,7 @@ class App extends React.Component {
     this.state = getData();
 
     this.handleAddItemClick = this.handleAddItemClick.bind(this);
+    this.handleDeleteItemClick = this.handleDeleteItemClick.bind(this);
     this.handleValueChange = this.handleValueChange.bind(this);
     this.handleCheckClick = this.handleCheckClick.bind(this);
     this.handleItemBlur = this.handleItemBlur.bind(this);
@@ -56,6 +57,12 @@ class App extends React.Component {
 
     this.setState({
       items: this.state.items.concat(item),
+    });
+  }
+
+  handleDeleteItemClick({ id }) {
+    this.setState({
+      items: this.state.items.filter((item) => item.id !== id),
     });
   }
 
@@ -147,6 +154,7 @@ class App extends React.Component {
           onBlur={this.handleItemBlur}
           onInputEnter={this.handleInputEnter}
           onAddItemClick={this.handleAddItemClick}
+          onDeleteClick={this.handleDeleteItemClick}
         />
       </div>
     );

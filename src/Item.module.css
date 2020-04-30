@@ -6,16 +6,13 @@
   gap: 16px;
   height: 48px;
   padding-inline-start: 16px;
-  /* padding-block-start: 1px;
-  padding-block-end: 1px; */
+  padding-inline-end: 8px;
 
   background-color: white;
 }
 
 .ItemCompleted {
   composes: Item;
-
-  /* background-color: #fafafa; */
 }
 
 .field {
@@ -37,7 +34,7 @@
   /* color: lightgray; */
 }
 
-.button {
+.CheckBox {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -55,4 +52,27 @@
 
 .Unchecked {
   fill: #aaa;
+}
+
+.DeleteButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 8px;
+  height: 48px;
+  width: 48px;
+  padding: 0;
+
+  background-color: transparent;
+
+  cursor: pointer;
+}
+
+.DeleteIcon {
+  fill: #ddd;
+}
+
+.DeleteButton:hover > .DeleteIcon {
+  fill: #ccc;
 }

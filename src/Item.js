@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./Item.module.css";
 import { ReactComponent as Checked } from "./checked.svg";
 import { ReactComponent as Unchecked } from "./unchecked.svg";
+import { ReactComponent as Delete } from "./delete.svg";
 
 function Item(props) {
   const handleValueChange = (e) => {
@@ -18,6 +19,14 @@ function Item(props) {
       props.onCheckClick({
         id: props.id,
         isCompleted: props.isCompleted,
+      });
+    }
+  };
+
+  const handleDeleteClick = (e) => {
+    if (props.onDeleteClick) {
+      props.onDeleteClick({
+        id: props.id,
       });
     }
   };
@@ -40,6 +49,11 @@ function Item(props) {
     }
   };
 
+  const deleteButton = props.onDeleteClick ? (
+    <button className={styles.DeleteButton} onClick={handleDeleteClick}>
+      <Delete className={styles.DeleteIcon} />
+    </button>
+  ) : null;
   const itemClassName = props.isCompleted ? styles.ItemCompleted : styles.Item;
   const fieldClassName = props.isCompleted
     ? styles.textCompleted
@@ -47,7 +61,7 @@ function Item(props) {
 
   return (
     <li className={itemClassName}>
-      <button className={styles.button} onClick={handleCheckClick}>
+      <button className={styles.CheckBox} onClick={handleCheckClick}>
         {props.isCompleted ? (
           <Checked className={styles.Checked} />
         ) : (
@@ -65,6 +79,7 @@ function Item(props) {
         onBlur={handleInputBlur}
         onKeyUp={handleKeyUp}
       ></input>
+      {deleteButton}
     </li>
   );
 }

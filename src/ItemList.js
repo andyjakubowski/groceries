@@ -15,6 +15,7 @@ function ItemList(props) {
       isOpen={item.isOpen}
       onBlur={props.onBlur}
       orderId={item.orderId}
+      onDeleteClick={props.onDeleteClick}
     ></Item>
   );
 
