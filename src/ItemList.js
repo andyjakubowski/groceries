@@ -37,7 +37,7 @@ function ItemList(props) {
   return (
     <ul className={styles.ItemList}>
       {items}
-      <AddItemListItem onAddItemClick={props.onAddItemClick}>
+      <AddItemListItem key="addListItem" onAddItemClick={props.onAddItemClick}>
         New item
       </AddItemListItem>
       {completed}
