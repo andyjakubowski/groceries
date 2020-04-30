@@ -1,6 +1,5 @@
 import React from "react";
 import Item from "./Item";
-import AddItemListItem from "./AddItemListItem";
 import styles from "./ItemList.module.css";
 
 function ItemList(props) {
@@ -37,9 +36,13 @@ function ItemList(props) {
   return (
     <ul className={styles.ItemList}>
       {items}
-      <AddItemListItem key="addListItem" onAddItemClick={props.onAddItemClick}>
-        New item
-      </AddItemListItem>
+      <Item
+        key="addListItem"
+        text=""
+        isCompleted={false}
+        isOpen={false}
+        onInputFocus={props.onAddItemClick}
+      ></Item>
       {completed}
     </ul>
   );

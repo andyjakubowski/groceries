@@ -4,19 +4,35 @@ import { ReactComponent as Checked } from "./checked.svg";
 import { ReactComponent as Unchecked } from "./unchecked.svg";
 
 function Item(props) {
-  const handleValueChange = (e) =>
-    props.onValueChange({
-      id: props.id,
-      text: e.target.value,
-    });
+  const handleValueChange = (e) => {
+    if (props.onValueChange) {
+      props.onValueChange({
+        id: props.id,
+        text: e.target.value,
+      });
+    }
+  };
 
-  const handleCheckClick = (e) =>
-    props.onCheckClick({
-      id: props.id,
-      isCompleted: props.isCompleted,
-    });
+  const handleCheckClick = (e) => {
+    if (props.onCheckClick) {
+      props.onCheckClick({
+        id: props.id,
+        isCompleted: props.isCompleted,
+      });
+    }
+  };
 
-  const handleInputBlur = () => props.onBlur({ id: props.id });
+  const handleInputFocus = () => {
+    if (props.onInputFocus) {
+      props.onInputFocus();
+    }
+  };
+
+  const handleInputBlur = () => {
+    if (props.onBlur) {
+      props.onBlur({ id: props.id });
+    }
+  };
 
   const handleKeyUp = (e) => {
     if (e.key === "Enter") {
@@ -45,6 +61,7 @@ function Item(props) {
         onChange={handleValueChange}
         disabled={props.isCompleted ? true : false}
         autoFocus={props.isOpen}
+        onFocus={handleInputFocus}
         onBlur={handleInputBlur}
         onKeyUp={handleKeyUp}
       ></input>
