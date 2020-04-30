@@ -18,14 +18,21 @@ function ItemList(props) {
       orderId={item.orderId}
     ></Item>
   );
-  const items = props.items
-    .filter((item) => !item.isCompleted)
-    .sort((itemA, itemB) => itemA.orderId - itemB.orderId)
-    .map((item) => itemElement(item));
-  const completed = props.items
-    .filter((item) => item.isCompleted)
-    .sort((itemA, itemB) => itemA.orderId - itemB.orderId)
-    .map((item) => itemElement(item));
+
+  const elementCollection = ({ array, isCompleted }) => {
+    const collection = array
+      .filter((item) => item.isCompleted === isCompleted)
+      .sort((itemA, itemB) => itemA.orderId - itemB.orderId)
+      .map((item) => itemElement(item));
+
+    return collection;
+  };
+
+  const items = elementCollection({ array: props.items, isCompleted: false });
+  const completed = elementCollection({
+    array: props.items,
+    isCompleted: true,
+  });
 
   return (
     <ul className={styles.ItemList}>
