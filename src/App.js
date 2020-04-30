@@ -28,6 +28,7 @@ class App extends React.Component {
     this.handleValueChange = this.handleValueChange.bind(this);
     this.handleCheckClick = this.handleCheckClick.bind(this);
     this.handleItemBlur = this.handleItemBlur.bind(this);
+    this.handleInputEnter = this.handleInputEnter.bind(this);
   }
 
   handleAddItemClick() {
@@ -61,6 +62,25 @@ class App extends React.Component {
           return item;
         }
       }),
+    });
+  }
+
+  handleInputEnter({ orderId }) {
+    const newItemOrderId = orderId + 1;
+    const item = newItem({ orderId: newItemOrderId, isOpen: true });
+
+    this.setState({
+      items: this.state.items
+        .map((item) => {
+          if (item.orderId >= newItemOrderId) {
+            return Object.assign({}, item, {
+              orderId: item.orderId + 1,
+            });
+          } else {
+            return item;
+          }
+        })
+        .concat(item),
     });
   }
 
@@ -124,6 +144,7 @@ class App extends React.Component {
           onValueChange={this.handleValueChange}
           onCheckClick={this.handleCheckClick}
           onBlur={this.handleItemBlur}
+          onInputEnter={this.handleInputEnter}
         />
         <AddItemButton onClick={this.handleAddItemClick}>
           Add new item
@@ -133,6 +154,7 @@ class App extends React.Component {
           onValueChange={this.handleValueChange}
           onCheckClick={this.handleCheckClick}
           onBlur={this.handleItemBlur}
+          onInputEnter={this.handleInputEnter}
         />
       </div>
     );

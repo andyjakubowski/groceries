@@ -12,9 +12,11 @@ function ItemList(props) {
           isCompleted={item.isCompleted}
           onValueChange={props.onValueChange}
           onCheckClick={props.onCheckClick}
+          onInputEnter={props.onInputEnter}
           id={item.id}
           isOpen={item.isOpen}
           onBlur={props.onBlur}
+          orderId={item.orderId}
         ></Item>
       ))}
     </ul>

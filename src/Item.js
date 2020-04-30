@@ -18,6 +18,12 @@ function Item(props) {
 
   const handleInputBlur = () => props.onBlur({ id: props.id });
 
+  const handleKeyUp = (e) => {
+    if (e.key === "Enter") {
+      props.onInputEnter({ orderId: props.orderId });
+    }
+  };
+
   const itemClassName = props.isCompleted ? styles.ItemCompleted : styles.Item;
   const fieldClassName = props.isCompleted
     ? styles.textCompleted
@@ -40,6 +46,7 @@ function Item(props) {
         disabled={props.isCompleted ? true : false}
         autoFocus={props.isOpen}
         onBlur={handleInputBlur}
+        onKeyUp={handleKeyUp}
       ></input>
     </li>
   );
