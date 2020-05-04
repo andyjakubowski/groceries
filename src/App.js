@@ -145,7 +145,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <header className="AppHeader">
-          <h1>Groceries</h1>
+          <h1>Linda from Purcha$ing</h1>
         </header>
         <ItemList
           items={this.state.items}
