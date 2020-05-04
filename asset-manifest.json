@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/linda/static/css/main.7e49874a.chunk.css",
+    "main.js": "/linda/static/js/main.1a76fb78.chunk.js",
+    "main.js.map": "/linda/static/js/main.1a76fb78.chunk.js.map",
+    "runtime-main.js": "/linda/static/js/runtime-main.78dee742.js",
+    "runtime-main.js.map": "/linda/static/js/runtime-main.78dee742.js.map",
+    "static/js/2.366628be.chunk.js": "/linda/static/js/2.366628be.chunk.js",
+    "static/js/2.366628be.chunk.js.map": "/linda/static/js/2.366628be.chunk.js.map",
+    "index.html": "/linda/index.html",
+    "precache-manifest.9e4664884e9a0cacc38fb3a769d11348.js": "/linda/precache-manifest.9e4664884e9a0cacc38fb3a769d11348.js",
+    "service-worker.js": "/linda/service-worker.js",
+    "static/css/main.7e49874a.chunk.css.map": "/linda/static/css/main.7e49874a.chunk.css.map",
+    "static/js/2.366628be.chunk.js.LICENSE.txt": "/linda/static/js/2.366628be.chunk.js.LICENSE.txt",
+    "static/media/checked.cc96fd33.svg": "/linda/static/media/checked.cc96fd33.svg",
+    "static/media/delete.1cf2698b.svg": "/linda/static/media/delete.1cf2698b.svg",
+    "static/media/unchecked.6203d88c.svg": "/linda/static/media/unchecked.6203d88c.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.78dee742.js",
+    "static/js/2.366628be.chunk.js",
+    "static/css/main.7e49874a.chunk.css",
+    "static/js/main.1a76fb78.chunk.js"
+  ]
+}
