@@ -16,6 +16,7 @@ function ItemList(props) {
       onBlur={props.onBlur}
       orderId={item.orderId}
       onDeleteClick={props.onDeleteClick}
+      hasCheckButton={true}
     ></Item>
   );
 
@@ -37,13 +38,14 @@ function ItemList(props) {
   return (
     <ul className={styles.ItemList}>
       {items}
-      <Item
+      {/* <Item
         key="addListItem"
         text=""
         isCompleted={false}
         isOpen={false}
         onInputFocus={props.onAddItemClick}
-      ></Item>
+        hasCircle={false}
+      ></Item> */}
       {completed}
     </ul>
   );

@@ -54,6 +54,15 @@ function Item(props) {
       <Delete className={styles.DeleteIcon} />
     </button>
   ) : null;
+  const checkButton = props.hasCheckButton ? (
+    <button className={styles.CheckBox} onClick={handleCheckClick}>
+      {props.isCompleted ? (
+        <Checked className={styles.Checked} />
+      ) : (
+        <Unchecked className={styles.Unchecked} />
+      )}
+    </button>
+  ) : null;
   const itemClassName = props.isCompleted ? styles.ItemCompleted : styles.Item;
   const fieldClassName = props.isCompleted
     ? styles.textCompleted
@@ -61,13 +70,7 @@ function Item(props) {
 
   return (
     <li className={itemClassName}>
-      <button className={styles.CheckBox} onClick={handleCheckClick}>
-        {props.isCompleted ? (
-          <Checked className={styles.Checked} />
-        ) : (
-          <Unchecked className={styles.Unchecked} />
-        )}
-      </button>
+      {checkButton}
       <input
         className={fieldClassName}
         type="text"
