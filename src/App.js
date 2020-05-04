@@ -39,8 +39,8 @@ class App extends React.Component {
 
   componentDidMount() {
     client.getItems((items) => {
-      console.log("Got the items:");
-      console.log(items);
+      // console.log("Got the items:");
+      // console.log(items);
     });
   }
 
@@ -66,6 +66,8 @@ class App extends React.Component {
     this.setState({
       items: this.state.items.concat(item),
     });
+
+    client.createItem(item);
   }
 
   handleDeleteItemClick({ id }) {
@@ -105,6 +107,8 @@ class App extends React.Component {
         })
         .concat(item),
     });
+
+    client.createItem(item);
   }
 
   handleValueChange({ id, text }) {

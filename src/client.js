@@ -1,13 +1,25 @@
+const API_URL = "http://localhost:3000";
+const HEADERS = {
+  Accept: "application/json",
+  "Content-Type": "application/json",
+};
+
 const client = {
   getItems(success) {
-    fetch("http://localhost:3000/items", {
-      headers: {
-        "Content-Type": "application/json",
-      },
+    fetch(`${API_URL}/items`, {
+      headers: HEADERS,
     })
       .then(checkStatus)
       .then(parseJSON)
       .then(success);
+  },
+
+  createItem(item) {
+    fetch(`${API_URL}/items`, {
+      method: "post",
+      headers: HEADERS,
+      body: JSON.stringify(item),
+    }).then(checkStatus);
   },
 };
 
