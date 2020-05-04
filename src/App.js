@@ -74,6 +74,8 @@ class App extends React.Component {
     this.setState({
       items: this.state.items.filter((item) => item.id !== id),
     });
+
+    client.deleteItem(id);
   }
 
   handleItemBlur({ id }) {

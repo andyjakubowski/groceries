@@ -29,6 +29,12 @@ const client = {
       body: JSON.stringify(item),
     }).then(checkStatus);
   },
+
+  deleteItem(id) {
+    fetch(`${API_URL}/items/${id}`, {
+      method: "delete",
+    }).then(checkStatus);
+  },
 };
 
 function checkStatus(response) {
