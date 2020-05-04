@@ -9,7 +9,6 @@ const client = {
     fetch(`${API_URL}/items`, {
       headers: HEADERS,
     })
-      .then(checkStatus)
       .then(parseJSON)
       .then(success);
   },
@@ -19,7 +18,7 @@ const client = {
       method: "post",
       headers: HEADERS,
       body: JSON.stringify(item),
-    }).then(checkStatus);
+    });
   },
 
   updateItem(item) {
@@ -27,13 +26,13 @@ const client = {
       method: "put",
       headers: HEADERS,
       body: JSON.stringify(item),
-    }).then(checkStatus);
+    });
   },
 
   deleteItem(id) {
     fetch(`${API_URL}/items/${id}`, {
       method: "delete",
-    }).then(checkStatus);
+    });
   },
 };
 

@@ -1,13 +1,16 @@
 import React from "react";
 import "./App.css";
 import ItemList from "./ItemList";
-import seedData from "./seedData";
 import { v4 as uuid } from "uuid";
 import client from "./client";
 
 const LOCAL_STORAGE_KEY = "groceries";
-const getData = () =>
-  JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY)) || seedData;
+const getLocalStorageState = function getLocalStorageState() {
+  const state = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY));
+
+  return state || { items: [] };
+};
+
 const saveData = (data) =>
   window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
 
@@ -27,7 +30,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = getData();
+    this.state = getLocalStorageState();
 
     this.handleAddItemClick = this.handleAddItemClick.bind(this);
     this.handleDeleteItemClick = this.handleDeleteItemClick.bind(this);
@@ -39,8 +42,7 @@ class App extends React.Component {
 
   componentDidMount() {
     client.getItems((items) => {
-      // console.log("Got the items:");
-      // console.log(items);
+      this.setState({ items });
     });
   }
 
