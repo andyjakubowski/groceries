@@ -3,6 +3,7 @@ import "./App.css";
 import ItemList from "./ItemList";
 import seedData from "./seedData";
 import { v4 as uuid } from "uuid";
+import client from "./client";
 
 const LOCAL_STORAGE_KEY = "groceries";
 const getData = () =>
@@ -34,6 +35,13 @@ class App extends React.Component {
     this.handleCheckClick = this.handleCheckClick.bind(this);
     this.handleItemBlur = this.handleItemBlur.bind(this);
     this.handleInputEnter = this.handleInputEnter.bind(this);
+  }
+
+  componentDidMount() {
+    client.getItems((items) => {
+      console.log("Got the items:");
+      console.log(items);
+    });
   }
 
   componentDidUpdate() {
