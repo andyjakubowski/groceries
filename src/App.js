@@ -80,9 +80,11 @@ class App extends React.Component {
     this.setState({
       items: this.state.items.map((item) => {
         if (item.id === id) {
-          return Object.assign({}, item, {
+          const updated = Object.assign({}, item, {
             isOpen: false,
           });
+          client.updateItem(updated);
+          return updated;
         } else {
           return item;
         }
@@ -115,9 +117,11 @@ class App extends React.Component {
     this.setState({
       items: this.state.items.map((item) => {
         if (item.id === id) {
-          return Object.assign({}, item, {
+          const updated = Object.assign({}, item, {
             text,
           });
+          client.updateItem(updated);
+          return updated;
         } else {
           return item;
         }
@@ -142,10 +146,12 @@ class App extends React.Component {
     this.setState({
       items: this.state.items.map((item) => {
         if (item.id === id) {
-          return Object.assign({}, item, {
+          const updated = Object.assign({}, item, {
             isCompleted: !item.isCompleted,
             orderId,
           });
+          client.updateItem(updated);
+          return updated;
         } else {
           return item;
         }

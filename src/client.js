@@ -21,6 +21,14 @@ const client = {
       body: JSON.stringify(item),
     }).then(checkStatus);
   },
+
+  updateItem(item) {
+    fetch(`${API_URL}/items/${item.id}`, {
+      method: "put",
+      headers: HEADERS,
+      body: JSON.stringify(item),
+    }).then(checkStatus);
+  },
 };
 
 function checkStatus(response) {
