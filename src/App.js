@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import ItemList from "./ItemList";
+import AddItemButton from "./AddItemButton";
 import { v4 as uuid } from "uuid";
 import client from "./client";
 
@@ -178,6 +179,7 @@ class App extends React.Component {
           onAddItemClick={this.handleAddItemClick}
           onDeleteClick={this.handleDeleteItemClick}
         />
+        <AddItemButton onClick={this.handleAddItemClick} />
       </div>
     );
   }
