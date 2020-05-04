@@ -1,5 +1,6 @@
 .App {
   min-height: 100vh;
+  padding-block-end: 100px;
 
   background-color: beige;
 }
