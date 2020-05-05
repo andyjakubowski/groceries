@@ -45,6 +45,8 @@ class App extends React.Component {
     client.getItems((items) => {
       this.setState({ items });
     });
+
+    client.subscribeToUpdates();
   }
 
   componentDidUpdate() {

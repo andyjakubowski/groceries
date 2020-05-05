@@ -1,3 +1,5 @@
+import { createConsumer } from "@rails/actioncable";
+
 const API_URL =
   process.env.NODE_ENV === "production"
     ? "https://linda-groceries.herokuapp.com"
@@ -7,7 +9,31 @@ const HEADERS = {
   "Content-Type": "application/json",
 };
 
+const consumer = createConsumer("ws://localhost:3000/cable");
+
 const client = {
+  subscribeToUpdates() {
+    consumer.subscriptions.create(
+      {
+        channel: "ListChannel",
+      },
+      {
+        connected() {
+          console.log("Action Cable connected.");
+        },
+
+        disconnected() {
+          console.log("Action Cable disconnected.");
+        },
+
+        received(data) {
+          console.log("Action Cable received data.");
+          console.log(data);
+        },
+      }
+    );
+  },
+
   getItems(success) {
     fetch(`${API_URL}/items`, {
       headers: HEADERS,
