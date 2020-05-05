@@ -15,18 +15,6 @@ const getLocalStorageState = function getLocalStorageState() {
 const saveData = (data) =>
   window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
 
-function newItem({ orderId, isOpen }) {
-  const item = {
-    orderId,
-    isOpen,
-    id: uuid(),
-    text: "",
-    isCompleted: false,
-  };
-
-  return item;
-}
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -46,11 +34,66 @@ class App extends React.Component {
       this.setState({ items });
     });
 
-    client.subscribeToUpdates();
+    client.subscribeToUpdates({
+      onConnected: this.handleConnected,
+      onDisconnected: this.handleDisconnected,
+      onReceived: this.handleReceived,
+    });
   }
 
   componentDidUpdate() {
     saveData(this.state);
+  }
+
+  handleConnected() {
+    console.log("Connected to ListChannel.");
+  }
+
+  handleDisconnected() {
+    console.log("Disconnected from ListChannel.");
+  }
+
+  handleReceived(data) {
+    console.log("Received data from ListChannel.");
+    switch (data.message_type) {
+      case "item_create":
+        console.log("item_create");
+        break;
+      default:
+        console.log("unhandled message type");
+    }
+  }
+
+  createItem({
+    id = uuid(),
+    orderId,
+    text = "",
+    isCompleted = false,
+    isOpen = false,
+  }) {
+    const newItem = {
+      id,
+      orderId,
+      text,
+      isCompleted,
+      isOpen,
+    };
+
+    this.setState({
+      items: this.state.items
+        .map((item) => {
+          if (item.orderId >= newItem.orderId) {
+            return Object.assign({}, item, {
+              orderId: item.orderId + 1,
+            });
+          } else {
+            return item;
+          }
+        })
+        .concat(newItem),
+    });
+
+    return newItem;
   }
 
   handleAddItemClick() {
@@ -66,11 +109,13 @@ class App extends React.Component {
       orderId = 0;
     }
 
-    const item = newItem({ orderId, isOpen: true });
+    const item = this.createItem({ orderId, isOpen: true });
+    client.createItem(item);
+  }
 
-    this.setState({
-      items: this.state.items.concat(item),
-    });
+  handleInputEnter({ orderId }) {
+    const newItemOrderId = orderId + 1;
+    const item = this.createItem({ orderId: newItemOrderId, isOpen: true });
 
     client.createItem(item);
   }
@@ -97,27 +142,6 @@ class App extends React.Component {
         }
       }),
     });
-  }
-
-  handleInputEnter({ orderId }) {
-    const newItemOrderId = orderId + 1;
-    const item = newItem({ orderId: newItemOrderId, isOpen: true });
-
-    this.setState({
-      items: this.state.items
-        .map((item) => {
-          if (item.orderId >= newItemOrderId) {
-            return Object.assign({}, item, {
-              orderId: item.orderId + 1,
-            });
-          } else {
-            return item;
-          }
-        })
-        .concat(item),
-    });
-
-    client.createItem(item);
   }
 
   handleValueChange({ id, text }) {

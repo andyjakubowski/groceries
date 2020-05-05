@@ -12,23 +12,22 @@ const HEADERS = {
 const consumer = createConsumer("ws://localhost:3000/cable");
 
 const client = {
-  subscribeToUpdates() {
+  subscribeToUpdates({ onConnected, onDisconnected, onReceived }) {
     consumer.subscriptions.create(
       {
         channel: "ListChannel",
       },
       {
         connected() {
-          console.log("Action Cable connected.");
+          onConnected();
         },
 
         disconnected() {
-          console.log("Action Cable disconnected.");
+          onDisconnected();
         },
 
         received(data) {
-          console.log("Action Cable received data.");
-          console.log(data);
+          onReceived(data);
         },
       }
     );
