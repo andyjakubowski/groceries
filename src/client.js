@@ -1,15 +1,22 @@
 import { createConsumer } from "@rails/actioncable";
 
-const API_URL =
+const HOST =
   process.env.NODE_ENV === "production"
-    ? "https://linda-groceries.herokuapp.com"
-    : "http://localhost:3000";
+    ? "linda-groceries.herokuapp.com"
+    : "localhost:3000";
+const API_URL =
+  process.env.NODE_ENV === "production" ? `https://${HOST}` : `http://${HOST}`;
+const CABLE_URL =
+  process.env.NODE_ENV === "production"
+    ? `wss://${HOST}/cable`
+    : `ws://${HOST}/cable`;
+
 const HEADERS = {
   Accept: "application/json",
   "Content-Type": "application/json",
 };
 
-const consumer = createConsumer("ws://localhost:3000/cable");
+const consumer = createConsumer(CABLE_URL);
 
 const client = {
   subscribeToUpdates({ onConnected, onDisconnected, onReceived }) {
