@@ -21,6 +21,9 @@ class App extends React.Component {
 
     this.state = getLocalStorageState();
 
+    this.handleConnected = this.handleConnected.bind(this);
+    this.handleDisconnected = this.handleDisconnected.bind(this);
+    this.handleReceived = this.handleReceived.bind(this);
     this.handleAddItemClick = this.handleAddItemClick.bind(this);
     this.handleDeleteItemClick = this.handleDeleteItemClick.bind(this);
     this.handleValueChange = this.handleValueChange.bind(this);
@@ -53,14 +56,34 @@ class App extends React.Component {
     console.log("Disconnected from ListChannel.");
   }
 
+  hasItem(items, id) {
+    for (let i = 0; i < items.length; i += 1) {
+      if (items[i].id === id) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   handleReceived(data) {
     console.log("Received data from ListChannel.");
     switch (data.message_type) {
       case "item_create":
-        console.log("item_create");
+        if (!this.hasItem(this.state.items, data.item.id)) {
+          this.createItem(data.item);
+        }
+        break;
+      case "item_update":
+        if (this.hasItem(this.state.items, data.item.id)) {
+          this.updateItem(data.item);
+        }
+        break;
+      case "item_delete":
+        this.deleteItem(data.item.id);
         break;
       default:
-        console.log("unhandled message type");
+        console.log("Unrecognized message type");
     }
   }
 
@@ -96,6 +119,24 @@ class App extends React.Component {
     return newItem;
   }
 
+  updateItem(updatedItem) {
+    this.setState({
+      items: this.state.items.map((item) => {
+        if (item.id === updatedItem.id) {
+          return Object.assign({}, item, updatedItem);
+        } else {
+          return item;
+        }
+      }),
+    });
+  }
+
+  deleteItem(id) {
+    this.setState({
+      items: this.state.items.filter((item) => item.id !== id),
+    });
+  }
+
   handleAddItemClick() {
     const orderIds = this.state.items
       .filter((item) => !item.isCompleted)
@@ -121,10 +162,7 @@ class App extends React.Component {
   }
 
   handleDeleteItemClick({ id }) {
-    this.setState({
-      items: this.state.items.filter((item) => item.id !== id),
-    });
-
+    this.deleteItem(id);
     client.deleteItem(id);
   }
 
