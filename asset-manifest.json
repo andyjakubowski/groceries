@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/groceries/static/css/main.45061508.chunk.css",
-    "main.js": "/groceries/static/js/main.c05d537a.chunk.js",
-    "main.js.map": "/groceries/static/js/main.c05d537a.chunk.js.map",
+    "main.js": "/groceries/static/js/main.cc9343ee.chunk.js",
+    "main.js.map": "/groceries/static/js/main.cc9343ee.chunk.js.map",
     "runtime-main.js": "/groceries/static/js/runtime-main.55f5dc89.js",
     "runtime-main.js.map": "/groceries/static/js/runtime-main.55f5dc89.js.map",
-    "static/js/2.366628be.chunk.js": "/groceries/static/js/2.366628be.chunk.js",
-    "static/js/2.366628be.chunk.js.map": "/groceries/static/js/2.366628be.chunk.js.map",
+    "static/js/2.6fde803d.chunk.js": "/groceries/static/js/2.6fde803d.chunk.js",
+    "static/js/2.6fde803d.chunk.js.map": "/groceries/static/js/2.6fde803d.chunk.js.map",
     "index.html": "/groceries/index.html",
-    "precache-manifest.63c5d23edaca867bf8e5146c3c27b3dd.js": "/groceries/precache-manifest.63c5d23edaca867bf8e5146c3c27b3dd.js",
+    "precache-manifest.9751f4b58d1823491fd7700b137d7580.js": "/groceries/precache-manifest.9751f4b58d1823491fd7700b137d7580.js",
     "service-worker.js": "/groceries/service-worker.js",
     "static/css/main.45061508.chunk.css.map": "/groceries/static/css/main.45061508.chunk.css.map",
-    "static/js/2.366628be.chunk.js.LICENSE.txt": "/groceries/static/js/2.366628be.chunk.js.LICENSE.txt",
+    "static/js/2.6fde803d.chunk.js.LICENSE.txt": "/groceries/static/js/2.6fde803d.chunk.js.LICENSE.txt",
     "static/media/checked.cc96fd33.svg": "/groceries/static/media/checked.cc96fd33.svg",
     "static/media/delete.1cf2698b.svg": "/groceries/static/media/delete.1cf2698b.svg",
     "static/media/unchecked.6203d88c.svg": "/groceries/static/media/unchecked.6203d88c.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.55f5dc89.js",
-    "static/js/2.366628be.chunk.js",
+    "static/js/2.6fde803d.chunk.js",
     "static/css/main.45061508.chunk.css",
-    "static/js/main.c05d537a.chunk.js"
+    "static/js/main.cc9343ee.chunk.js"
   ]
 }
