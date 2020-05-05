@@ -1,5 +1,7 @@
-console.log(`Environment: ${process.env.NODE_ENV}`);
-const API_URL = "https://linda-groceries.herokuapp.com";
+const API_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://linda-groceries.herokuapp.com"
+    : "http://localhost:3000";
 const HEADERS = {
   Accept: "application/json",
   "Content-Type": "application/json",
