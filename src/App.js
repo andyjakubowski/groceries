@@ -75,9 +75,7 @@ class App extends React.Component {
         }
         break;
       case "item_update":
-        if (this.hasItem(this.state.items, data.item.id)) {
-          this.updateItem(data.item);
-        }
+        this.updateItem(data.item);
         break;
       case "item_delete":
         this.deleteItem(data.item.id);
