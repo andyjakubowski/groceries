@@ -1,0 +1,38 @@
+.Header {
+  border-block-end: 4px dashed tomato;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline-start: 16px;
+  padding-inline-end: 16px;
+
+  background-color: white;
+}
+
+.Heading {
+  font-size: 24px;
+  text-align: center;
+}
+
+.ReloadButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 8px;
+  height: 48px;
+  width: 48px;
+  padding: 0;
+
+  background-color: transparent;
+
+  cursor: pointer;
+}
+
+.ReloadIcon {
+  fill: black;
+}
+
+.ReloadButton:hover > .ReloadIcon {
+  fill: #222;
+}

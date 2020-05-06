@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import Header from "./Header";
 import ItemList from "./ItemList";
 import AddItemButton from "./AddItemButton";
 import { v4 as uuid } from "uuid";
@@ -30,6 +31,7 @@ class App extends React.Component {
     this.handleCheckClick = this.handleCheckClick.bind(this);
     this.handleItemBlur = this.handleItemBlur.bind(this);
     this.handleInputEnter = this.handleInputEnter.bind(this);
+    this.handleReloadClick = this.handleReloadClick.bind(this);
   }
 
   componentDidMount() {
@@ -229,12 +231,16 @@ class App extends React.Component {
     });
   }
 
+  handleReloadClick() {
+    client.getItems((items) => {
+      this.setState({ items });
+    });
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="AppHeader">
-          <h1 className="AppHeaderHeading">Linda from Purcha$ing v16</h1>
-        </header>
+        <Header onReloadClick={this.handleReloadClick} />
         <ItemList
           items={this.state.items}
           onValueChange={this.handleValueChange}
