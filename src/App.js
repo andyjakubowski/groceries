@@ -175,7 +175,6 @@ class App extends React.Component {
           const updated = Object.assign({}, item, {
             isOpen: false,
           });
-          client.updateItem(updated);
           return updated;
         } else {
           return item;
