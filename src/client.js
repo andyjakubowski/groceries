@@ -1,4 +1,5 @@
 import { createConsumer } from "@rails/actioncable";
+import { v4 as uuid } from "uuid";
 
 const HOST =
   process.env.NODE_ENV === "production"
@@ -19,6 +20,8 @@ const HEADERS = {
 const consumer = createConsumer(CABLE_URL);
 
 const client = {
+  id: uuid(),
+
   subscribeToUpdates({ onConnected, onDisconnected, onReceived }) {
     consumer.subscriptions.create(
       {
@@ -49,24 +52,29 @@ const client = {
   },
 
   createItem(item) {
+    const data = Object.assign({}, item, { clientId: this.id });
     fetch(`${API_URL}/items`, {
       method: "post",
       headers: HEADERS,
-      body: JSON.stringify(item),
+      body: JSON.stringify(data),
     });
   },
 
   updateItem(item) {
+    const data = Object.assign({}, item, { clientId: this.id });
     fetch(`${API_URL}/items/${item.id}`, {
       method: "put",
       headers: HEADERS,
-      body: JSON.stringify(item),
+      body: JSON.stringify(data),
     });
   },
 
   deleteItem(id) {
+    const data = { clientId: this.id };
     fetch(`${API_URL}/items/${id}`, {
       method: "delete",
+      headers: HEADERS,
+      body: JSON.stringify(data),
     });
   },
 };

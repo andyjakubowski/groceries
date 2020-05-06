@@ -67,7 +67,11 @@ class App extends React.Component {
   }
 
   handleReceived(data) {
-    console.log("Received data from ListChannel.");
+    // Ignore received data if the change originated with this client
+    if (data.clientId === client.id) {
+      return;
+    }
+
     switch (data.message_type) {
       case "item_create":
         if (!this.hasItem(this.state.items, data.item.id)) {
