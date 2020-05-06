@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/groceries/static/css/main.45061508.chunk.css",
-    "main.js": "/groceries/static/js/main.d8e00aaa.chunk.js",
-    "main.js.map": "/groceries/static/js/main.d8e00aaa.chunk.js.map",
+    "main.js": "/groceries/static/js/main.a260eafb.chunk.js",
+    "main.js.map": "/groceries/static/js/main.a260eafb.chunk.js.map",
     "runtime-main.js": "/groceries/static/js/runtime-main.55f5dc89.js",
     "runtime-main.js.map": "/groceries/static/js/runtime-main.55f5dc89.js.map",
-    "static/js/2.6fde803d.chunk.js": "/groceries/static/js/2.6fde803d.chunk.js",
-    "static/js/2.6fde803d.chunk.js.map": "/groceries/static/js/2.6fde803d.chunk.js.map",
+    "static/js/2.a4332bbb.chunk.js": "/groceries/static/js/2.a4332bbb.chunk.js",
+    "static/js/2.a4332bbb.chunk.js.map": "/groceries/static/js/2.a4332bbb.chunk.js.map",
     "index.html": "/groceries/index.html",
-    "precache-manifest.7d2d09a6d429c34995ed389b053e19d9.js": "/groceries/precache-manifest.7d2d09a6d429c34995ed389b053e19d9.js",
+    "precache-manifest.54e328ddc5c5b7e70879ac21016727c0.js": "/groceries/precache-manifest.54e328ddc5c5b7e70879ac21016727c0.js",
     "service-worker.js": "/groceries/service-worker.js",
     "static/css/main.45061508.chunk.css.map": "/groceries/static/css/main.45061508.chunk.css.map",
-    "static/js/2.6fde803d.chunk.js.LICENSE.txt": "/groceries/static/js/2.6fde803d.chunk.js.LICENSE.txt",
+    "static/js/2.a4332bbb.chunk.js.LICENSE.txt": "/groceries/static/js/2.a4332bbb.chunk.js.LICENSE.txt",
     "static/media/checked.cc96fd33.svg": "/groceries/static/media/checked.cc96fd33.svg",
     "static/media/delete.1cf2698b.svg": "/groceries/static/media/delete.1cf2698b.svg",
     "static/media/unchecked.6203d88c.svg": "/groceries/static/media/unchecked.6203d88c.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.55f5dc89.js",
-    "static/js/2.6fde803d.chunk.js",
+    "static/js/2.a4332bbb.chunk.js",
     "static/css/main.45061508.chunk.css",
-    "static/js/main.d8e00aaa.chunk.js"
+    "static/js/main.a260eafb.chunk.js"
   ]
 }
