@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/groceries/static/css/main.45061508.chunk.css",
-    "main.js": "/groceries/static/js/main.a260eafb.chunk.js",
-    "main.js.map": "/groceries/static/js/main.a260eafb.chunk.js.map",
+    "main.js": "/groceries/static/js/main.f472754e.chunk.js",
+    "main.js.map": "/groceries/static/js/main.f472754e.chunk.js.map",
     "runtime-main.js": "/groceries/static/js/runtime-main.55f5dc89.js",
     "runtime-main.js.map": "/groceries/static/js/runtime-main.55f5dc89.js.map",
     "static/js/2.a4332bbb.chunk.js": "/groceries/static/js/2.a4332bbb.chunk.js",
     "static/js/2.a4332bbb.chunk.js.map": "/groceries/static/js/2.a4332bbb.chunk.js.map",
     "index.html": "/groceries/index.html",
-    "precache-manifest.54e328ddc5c5b7e70879ac21016727c0.js": "/groceries/precache-manifest.54e328ddc5c5b7e70879ac21016727c0.js",
+    "precache-manifest.bffd49d396469290d0cb63da5f28774b.js": "/groceries/precache-manifest.bffd49d396469290d0cb63da5f28774b.js",
     "service-worker.js": "/groceries/service-worker.js",
     "static/css/main.45061508.chunk.css.map": "/groceries/static/css/main.45061508.chunk.css.map",
     "static/js/2.a4332bbb.chunk.js.LICENSE.txt": "/groceries/static/js/2.a4332bbb.chunk.js.LICENSE.txt",
@@ -20,6 +20,6 @@
     "static/js/runtime-main.55f5dc89.js",
     "static/js/2.a4332bbb.chunk.js",
     "static/css/main.45061508.chunk.css",
-    "static/js/main.a260eafb.chunk.js"
+    "static/js/main.f472754e.chunk.js"
   ]
 }
