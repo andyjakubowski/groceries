@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/groceries/static/css/main.dd54be8f.chunk.css",
-    "main.js": "/groceries/static/js/main.c24ce0d5.chunk.js",
-    "main.js.map": "/groceries/static/js/main.c24ce0d5.chunk.js.map",
+    "main.css": "/groceries/static/css/main.73e36939.chunk.css",
+    "main.js": "/groceries/static/js/main.db23f4ee.chunk.js",
+    "main.js.map": "/groceries/static/js/main.db23f4ee.chunk.js.map",
     "runtime-main.js": "/groceries/static/js/runtime-main.55f5dc89.js",
     "runtime-main.js.map": "/groceries/static/js/runtime-main.55f5dc89.js.map",
-    "static/js/2.36856cad.chunk.js": "/groceries/static/js/2.36856cad.chunk.js",
-    "static/js/2.36856cad.chunk.js.map": "/groceries/static/js/2.36856cad.chunk.js.map",
+    "static/js/2.fa145992.chunk.js": "/groceries/static/js/2.fa145992.chunk.js",
+    "static/js/2.fa145992.chunk.js.map": "/groceries/static/js/2.fa145992.chunk.js.map",
     "index.html": "/groceries/index.html",
-    "precache-manifest.9f00b4739421d669ccc49c539a5926db.js": "/groceries/precache-manifest.9f00b4739421d669ccc49c539a5926db.js",
+    "precache-manifest.97a010378d336922a3bdb9e598d65ff3.js": "/groceries/precache-manifest.97a010378d336922a3bdb9e598d65ff3.js",
     "service-worker.js": "/groceries/service-worker.js",
-    "static/css/main.dd54be8f.chunk.css.map": "/groceries/static/css/main.dd54be8f.chunk.css.map",
-    "static/js/2.36856cad.chunk.js.LICENSE.txt": "/groceries/static/js/2.36856cad.chunk.js.LICENSE.txt",
+    "static/css/main.73e36939.chunk.css.map": "/groceries/static/css/main.73e36939.chunk.css.map",
+    "static/js/2.fa145992.chunk.js.LICENSE.txt": "/groceries/static/js/2.fa145992.chunk.js.LICENSE.txt",
     "static/media/checked.cc96fd33.svg": "/groceries/static/media/checked.cc96fd33.svg",
     "static/media/delete.1cf2698b.svg": "/groceries/static/media/delete.1cf2698b.svg",
     "static/media/reload.c10736c1.svg": "/groceries/static/media/reload.c10736c1.svg",
@@ -19,8 +19,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.55f5dc89.js",
-    "static/js/2.36856cad.chunk.js",
-    "static/css/main.dd54be8f.chunk.css",
-    "static/js/main.c24ce0d5.chunk.js"
+    "static/js/2.fa145992.chunk.js",
+    "static/css/main.73e36939.chunk.css",
+    "static/js/main.db23f4ee.chunk.js"
   ]
 }
