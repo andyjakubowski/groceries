@@ -241,7 +241,11 @@ class App extends React.Component {
 
   handleCompletedToggle() {
     this.setState((prevState) => {
-      return { showCompleted: !prevState.showCompleted };
+      if (has(prevState, "showCompleted")) {
+        return { showCompleted: !prevState.showCompleted };
+      } else {
+        return { showCompleted: false };
+      }
     });
   }
 
