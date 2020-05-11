@@ -46,7 +46,7 @@ function ItemList(props) {
         onInputFocus={props.onAddItemClick}
         hasCircle={false}
       ></Item> */}
-      {completed}
+      {props.showCompleted ? completed : null}
     </ul>
   );
 }

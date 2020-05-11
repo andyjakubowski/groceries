@@ -2,15 +2,16 @@ import React from "react";
 import "./App.css";
 import Header from "./Header";
 import ItemList from "./ItemList";
-import AddItemButton from "./AddItemButton";
+import Toolbar from "./Toolbar";
 import { v4 as uuid } from "uuid";
 import client from "./client";
+import { has } from "./utilities";
 
 const LOCAL_STORAGE_KEY = "groceries";
 const getLocalStorageState = function getLocalStorageState() {
   const state = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY));
 
-  return state || { items: [] };
+  return state || { items: [], showCompleted: true };
 };
 
 const saveData = (data) =>
@@ -32,6 +33,7 @@ class App extends React.Component {
     this.handleItemBlur = this.handleItemBlur.bind(this);
     this.handleInputEnter = this.handleInputEnter.bind(this);
     this.handleReloadClick = this.handleReloadClick.bind(this);
+    this.handleCompletedToggle = this.handleCompletedToggle.bind(this);
   }
 
   componentDidMount() {
@@ -237,7 +239,17 @@ class App extends React.Component {
     });
   }
 
+  handleCompletedToggle() {
+    this.setState((prevState) => {
+      return { showCompleted: !prevState.showCompleted };
+    });
+  }
+
   render() {
+    const showCompleted = has(this.state, "showCompleted")
+      ? this.state.showCompleted
+      : true;
+
     return (
       <div className="App">
         <Header onReloadClick={this.handleReloadClick} />
@@ -249,8 +261,12 @@ class App extends React.Component {
           onInputEnter={this.handleInputEnter}
           onAddItemClick={this.handleAddItemClick}
           onDeleteClick={this.handleDeleteItemClick}
+          showCompleted={showCompleted}
         />
-        <AddItemButton onClick={this.handleAddItemClick} />
+        <Toolbar
+          onAddItemClick={this.handleAddItemClick}
+          onCompletedToggle={this.handleCompletedToggle}
+        />
       </div>
     );
   }

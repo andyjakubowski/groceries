@@ -1,0 +1,16 @@
+.Toolbar {
+  box-sizing: border-box;
+  position: fixed;
+  bottom: 0;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline-start: 16px;
+  padding-inline-end: 16px;
+
+  width: 100%;
+  height: 56px;
+
+  background-color: white;
+}
