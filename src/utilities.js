@@ -14,4 +14,14 @@ function presence(object, key) {
   }
 }
 
-export { arrayLast, has, presence };
+function logEvent(e) {
+  console.log(
+    `${e.type}, target: ${e.target.id}, currentTarget: ${e.currentTarget.id}, timeStamp: ${e.timeStamp}`
+  );
+}
+
+function clamp(value, min, max) {
+  return Math.min(Math.max(value, min), max);
+}
+
+export { arrayLast, has, presence, logEvent, clamp };

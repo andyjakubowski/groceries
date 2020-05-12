@@ -1,13 +1,30 @@
 import React from "react";
 import Item from "./Item";
 import styles from "./ItemList.module.css";
+import { logEvent } from "./utilities";
 
 function ItemList(props) {
+  const handlePointerUp = (e) => {
+    props.onPointerUp();
+    logEvent(e);
+  };
+
+  const handlePointerCancel = (e) => {
+    props.onPointerCancel();
+    logEvent(e);
+  };
+
+  const handlePointerMove = (e) => {
+    props.onPointerMove();
+    // logEvent(e);
+  };
+
   const itemElement = (item) => (
     <Item
       key={item.id}
       text={item.text}
       isCompleted={item.isCompleted}
+      isBeingDragged={item.isBeingDragged}
       onValueChange={props.onValueChange}
       onCheckClick={props.onCheckClick}
       onInputEnter={props.onInputEnter}
@@ -17,6 +34,7 @@ function ItemList(props) {
       orderId={item.orderId}
       onDeleteClick={props.onDeleteClick}
       hasCheckButton={true}
+      onPointerDown={props.onPointerDown}
     ></Item>
   );
 
@@ -36,7 +54,12 @@ function ItemList(props) {
   });
 
   return (
-    <ul className={styles.ItemList}>
+    <ul
+      className={styles.ItemList}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerCancel}
+      onPointerMove={handlePointerMove}
+    >
       {items}
       {/* <Item
         key="addListItem"

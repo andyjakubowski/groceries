@@ -3,6 +3,7 @@ import styles from "./Item.module.css";
 import { ReactComponent as Checked } from "./checked.svg";
 import { ReactComponent as Unchecked } from "./unchecked.svg";
 import { ReactComponent as Delete } from "./delete.svg";
+import { logEvent } from "./utilities";
 
 function Item(props) {
   const handleValueChange = (e) => {
@@ -49,6 +50,12 @@ function Item(props) {
     }
   };
 
+  const handlePointerDown = (e) => {
+    const offsetY = e.nativeEvent.offsetY;
+    props.onPointerDown({ id: props.id, offsetY });
+    logEvent(e);
+  };
+
   const deleteButton = props.onDeleteClick ? (
     <button className={styles.DeleteButton} onClick={handleDeleteClick}>
       <Delete className={styles.DeleteIcon} />
@@ -63,13 +70,28 @@ function Item(props) {
       )}
     </button>
   ) : null;
-  const itemClassName = props.isCompleted ? styles.ItemCompleted : styles.Item;
+  const itemClassName = function getItemClassName() {
+    let className = "";
+
+    if (props.isCompleted) {
+      className = styles.ItemCompleted;
+    } else {
+      className = styles.Item;
+    }
+
+    if (props.isBeingDragged) {
+      className = `${className} ${styles.Dragged}`;
+    }
+
+    return className;
+  };
+
   const fieldClassName = props.isCompleted
     ? styles.textCompleted
     : styles.field;
 
   return (
-    <li className={itemClassName}>
+    <li className={itemClassName()} onPointerDown={handlePointerDown}>
       {checkButton}
       <input
         className={fieldClassName}

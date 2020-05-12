@@ -5,13 +5,32 @@ import ItemList from "./ItemList";
 import Toolbar from "./Toolbar";
 import { v4 as uuid } from "uuid";
 import client from "./client";
-import { has } from "./utilities";
+import { has, logEvent } from "./utilities";
+
+const defaultState = {
+  items: [],
+  showCompleted: true,
+  drag: {
+    isDragging: false,
+    draggedItemId: null,
+    offset: {
+      y: 0,
+    },
+  },
+};
+
+const TIMEOUT_MS = 500;
+let timeoutId;
 
 const LOCAL_STORAGE_KEY = "groceries";
 const getLocalStorageState = function getLocalStorageState() {
   const state = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY));
 
-  return state || { items: [], showCompleted: true };
+  return state || {};
+};
+
+const getInitialState = () => {
+  return Object.assign({}, defaultState, getLocalStorageState());
 };
 
 const saveData = (data) =>
@@ -21,7 +40,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = getLocalStorageState();
+    this.state = getInitialState();
 
     this.handleConnected = this.handleConnected.bind(this);
     this.handleDisconnected = this.handleDisconnected.bind(this);
@@ -34,6 +53,10 @@ class App extends React.Component {
     this.handleInputEnter = this.handleInputEnter.bind(this);
     this.handleReloadClick = this.handleReloadClick.bind(this);
     this.handleCompletedToggle = this.handleCompletedToggle.bind(this);
+    this.handlePointerDown = this.handlePointerDown.bind(this);
+    this.handlePointerUp = this.handlePointerUp.bind(this);
+    this.handlePointerCancel = this.handlePointerCancel.bind(this);
+    this.handlePointerMove = this.handlePointerMove.bind(this);
   }
 
   componentDidMount() {
@@ -50,6 +73,8 @@ class App extends React.Component {
 
   componentDidUpdate() {
     saveData(this.state);
+    console.log("componentDidUpdate");
+    console.log(this.state);
   }
 
   handleConnected() {
@@ -249,14 +274,79 @@ class App extends React.Component {
     });
   }
 
+  startDrag(id, offset) {
+    console.log("startDrag");
+    this.setState({
+      items: this.state.items.map((item) => {
+        if (item.id === id) {
+          return Object.assign({}, item, {
+            isBeingDragged: true,
+          });
+        } else {
+          return item;
+        }
+      }),
+      drag: {
+        isDragging: true,
+        draggedItemId: id,
+      },
+    });
+  }
+
+  stopDrag() {
+    console.log("stopDrag");
+    this.setState((prevState) => ({
+      items: prevState.items.map((item) => {
+        if (item.id === prevState.drag.draggedItemId) {
+          return Object.assign({}, item, {
+            isBeingDragged: false,
+          });
+        } else {
+          return item;
+        }
+      }),
+      drag: {
+        isDragging: false,
+        draggedItemId: null,
+      },
+    }));
+  }
+
+  handlePointerDown({ id, offsetY }) {
+    timeoutId = setTimeout(this.startDrag.bind(this, id, offsetY), TIMEOUT_MS);
+  }
+
+  handlePointerUp(e) {
+    clearTimeout(timeoutId);
+
+    if (this.state.drag.isDragging) {
+      this.stopDrag();
+    }
+  }
+
+  handlePointerCancel(e) {
+    clearTimeout(timeoutId);
+
+    if (this.state.drag.isDragging) {
+      this.stopDrag();
+    }
+  }
+
+  handlePointerMove(e) {
+    // logEvent(e);
+  }
+
   render() {
+    const title = this.state.drag.isDragging
+      ? "is dragging"
+      : "is not dragging";
     const showCompleted = has(this.state, "showCompleted")
       ? this.state.showCompleted
       : true;
 
     return (
       <div className="App">
-        <Header onReloadClick={this.handleReloadClick} />
+        <Header onReloadClick={this.handleReloadClick} title={title} />
         <ItemList
           items={this.state.items}
           onValueChange={this.handleValueChange}
@@ -266,6 +356,10 @@ class App extends React.Component {
           onAddItemClick={this.handleAddItemClick}
           onDeleteClick={this.handleDeleteItemClick}
           showCompleted={showCompleted}
+          onPointerDown={this.handlePointerDown}
+          onPointerUp={this.handlePointerUp}
+          onPointerCancel={this.handlePointerCancel}
+          onPointerMove={this.handlePointerMove}
         />
         <Toolbar
           onAddItemClick={this.handleAddItemClick}
