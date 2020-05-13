@@ -5,17 +5,17 @@ import ItemList from "./ItemList";
 import Toolbar from "./Toolbar";
 import { v4 as uuid } from "uuid";
 import client from "./client";
-import { has, logEvent } from "./utilities";
+import { has, clamp } from "./utilities";
 
 const defaultState = {
   items: [],
   showCompleted: true,
   drag: {
+    containerRef: null,
     isDragging: false,
     draggedItemId: null,
-    offset: {
-      y: 0,
-    },
+    offsetY: null,
+    top: null,
   },
 };
 
@@ -73,16 +73,14 @@ class App extends React.Component {
 
   componentDidUpdate() {
     saveData(this.state);
-    console.log("componentDidUpdate");
-    console.log(this.state);
   }
 
   handleConnected() {
-    console.log("Connected to ListChannel.");
+    // console.log("Connected to ListChannel.");
   }
 
   handleDisconnected() {
-    console.log("Disconnected from ListChannel.");
+    // console.log("Disconnected from ListChannel.");
   }
 
   hasItem(items, id) {
@@ -274,7 +272,7 @@ class App extends React.Component {
     });
   }
 
-  startDrag(id, offset) {
+  startDrag(id, offsetY) {
     console.log("startDrag");
     this.setState({
       items: this.state.items.map((item) => {
@@ -289,6 +287,7 @@ class App extends React.Component {
       drag: {
         isDragging: true,
         draggedItemId: id,
+        offsetY,
       },
     });
   }
@@ -297,7 +296,7 @@ class App extends React.Component {
     console.log("stopDrag");
     this.setState((prevState) => ({
       items: prevState.items.map((item) => {
-        if (item.id === prevState.drag.draggedItemId) {
+        if (item.isBeingDragged) {
           return Object.assign({}, item, {
             isBeingDragged: false,
           });
@@ -306,8 +305,10 @@ class App extends React.Component {
         }
       }),
       drag: {
+        ...prevState.drag,
         isDragging: false,
         draggedItemId: null,
+        offsetY: null,
       },
     }));
   }
@@ -332,8 +333,32 @@ class App extends React.Component {
     }
   }
 
-  handlePointerMove(e) {
+  handlePointerMove({ pageY, target: liDom, currentTarget: ulDom, e }) {
     // logEvent(e);
+    if (!this.state.drag.isDragging) {
+      return;
+    }
+
+    const liDomRect = liDom.getBoundingClientRect();
+    const ulDomRect = ulDom.getBoundingClientRect();
+    const preferredY = pageY - ulDomRect.top - this.state.drag.offsetY;
+    const minTop = 0;
+    const maxTop = ulDomRect.height - liDomRect.height;
+    const top = clamp(preferredY, minTop, maxTop);
+
+    this.setState((prevState) => ({
+      items: prevState.items.map((item) => {
+        if (item.id === prevState.drag.draggedItemId) {
+          return Object.assign({}, item, {
+            top,
+          });
+        } else {
+          return item;
+        }
+      }),
+    }));
+
+    console.log(`Top: ${top}`);
   }
 
   render() {

@@ -91,7 +91,11 @@ function Item(props) {
     : styles.field;
 
   return (
-    <li className={itemClassName()} onPointerDown={handlePointerDown}>
+    <li
+      className={itemClassName()}
+      onPointerDown={handlePointerDown}
+      style={props.style}
+    >
       {checkButton}
       <input
         className={fieldClassName}
