@@ -69,6 +69,15 @@ const client = {
     });
   },
 
+  updateManyItems(items) {
+    const data = { items, clientId: this.id };
+    fetch(`${API_URL}/items/update_many`, {
+      method: "put",
+      headers: HEADERS,
+      body: JSON.stringify(data),
+    });
+  },
+
   deleteItem(id) {
     const data = { clientId: this.id };
     fetch(`${API_URL}/items/${id}`, {

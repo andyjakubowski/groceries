@@ -260,17 +260,19 @@ class App extends React.Component {
   }
 
   handleOrderChange(orderIdObject) {
+    const updatedItems = [];
     this.setState({
       items: this.state.items.map((item) => {
         if (has(orderIdObject, item.id)) {
           const updated = { ...item, orderId: orderIdObject[item.id] };
-          client.updateItem(updated);
+          updatedItems.push(updated);
           return updated;
         } else {
           return item;
         }
       }),
     });
+    client.updateManyItems(updatedItems);
   }
 
   render() {

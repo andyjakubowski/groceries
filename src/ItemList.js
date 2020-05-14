@@ -229,6 +229,9 @@ class ItemList extends React.Component {
       return;
     }
 
+    console.log(`${Object.keys(this.itemRefs).length} itemRefs:`);
+    console.log(this.itemRefs);
+
     const prevRects = snapshot;
     const nextRects = this.getBoundingRects(this.props.items);
     for (let i = 0; i < this.props.items.length; i += 1) {
@@ -247,7 +250,7 @@ class ItemList extends React.Component {
         domNode.style.transition = "transform 0s";
         requestAnimationFrame(() => {
           domNode.style.transform = "";
-          domNode.style.transition = "transform 500ms";
+          domNode.style.transition = "transform 300ms";
         });
       });
     }
