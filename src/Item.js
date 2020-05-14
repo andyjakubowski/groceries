@@ -3,9 +3,8 @@ import styles from "./Item.module.css";
 import { ReactComponent as Checked } from "./checked.svg";
 import { ReactComponent as Unchecked } from "./unchecked.svg";
 import { ReactComponent as Delete } from "./delete.svg";
-import { logEvent } from "./utilities";
 
-function Item(props) {
+const Item = React.forwardRef((props, ref) => {
   const handleValueChange = (e) => {
     if (props.onValueChange) {
       props.onValueChange({
@@ -32,7 +31,8 @@ function Item(props) {
     }
   };
 
-  const handleInputFocus = () => {
+  const handleInputFocus = (e) => {
+    console.log("handleInputFocus");
     if (props.onInputFocus) {
       props.onInputFocus();
     }
@@ -48,12 +48,6 @@ function Item(props) {
     if (e.key === "Enter") {
       props.onInputEnter({ orderId: props.orderId });
     }
-  };
-
-  const handlePointerDown = (e) => {
-    const offsetY = e.nativeEvent.offsetY;
-    props.onPointerDown({ id: props.id, offsetY });
-    logEvent(e);
   };
 
   const deleteButton = props.onDeleteClick ? (
@@ -93,8 +87,9 @@ function Item(props) {
   return (
     <li
       className={itemClassName()}
-      onPointerDown={handlePointerDown}
-      style={props.style}
+      ref={ref}
+      style={props.itemStyle}
+      onPointerDown={(e) => props.onPointerDown(e, props.id, props.index)}
     >
       {checkButton}
       <input
@@ -111,6 +106,6 @@ function Item(props) {
       {deleteButton}
     </li>
   );
-}
+});
 
 export default Item;

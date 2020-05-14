@@ -17,8 +17,12 @@
 }
 
 .Dragged {
-  box-shadow: 0 2px 16px red;
-  opacity: 0.9;
+  position: relative;
+
+  z-index: 300;
+
+  box-shadow: 0 2px 16px lightgray;
+  opacity: 0.95;
 }
 
 .field {

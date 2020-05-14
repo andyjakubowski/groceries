@@ -5,22 +5,12 @@ import ItemList from "./ItemList";
 import Toolbar from "./Toolbar";
 import { v4 as uuid } from "uuid";
 import client from "./client";
-import { has, clamp } from "./utilities";
+import { has } from "./utilities";
 
 const defaultState = {
   items: [],
   showCompleted: true,
-  drag: {
-    containerRef: null,
-    isDragging: false,
-    draggedItemId: null,
-    offsetY: null,
-    top: null,
-  },
 };
-
-const TIMEOUT_MS = 500;
-let timeoutId;
 
 const LOCAL_STORAGE_KEY = "groceries";
 const getLocalStorageState = function getLocalStorageState() {
@@ -53,10 +43,7 @@ class App extends React.Component {
     this.handleInputEnter = this.handleInputEnter.bind(this);
     this.handleReloadClick = this.handleReloadClick.bind(this);
     this.handleCompletedToggle = this.handleCompletedToggle.bind(this);
-    this.handlePointerDown = this.handlePointerDown.bind(this);
-    this.handlePointerUp = this.handlePointerUp.bind(this);
-    this.handlePointerCancel = this.handlePointerCancel.bind(this);
-    this.handlePointerMove = this.handlePointerMove.bind(this);
+    this.handleOrderChange = this.handleOrderChange.bind(this);
   }
 
   componentDidMount() {
@@ -272,119 +259,46 @@ class App extends React.Component {
     });
   }
 
-  startDrag(id, offsetY) {
-    console.log("startDrag");
+  handleOrderChange(orderIdObject) {
     this.setState({
       items: this.state.items.map((item) => {
-        if (item.id === id) {
-          return Object.assign({}, item, {
-            isBeingDragged: true,
-          });
+        if (has(orderIdObject, item.id)) {
+          const updated = { ...item, orderId: orderIdObject[item.id] };
+          client.updateItem(updated);
+          return updated;
         } else {
           return item;
         }
       }),
-      drag: {
-        isDragging: true,
-        draggedItemId: id,
-        offsetY,
-      },
     });
   }
 
-  stopDrag() {
-    console.log("stopDrag");
-    this.setState((prevState) => ({
-      items: prevState.items.map((item) => {
-        if (item.isBeingDragged) {
-          return Object.assign({}, item, {
-            isBeingDragged: false,
-          });
-        } else {
-          return item;
-        }
-      }),
-      drag: {
-        ...prevState.drag,
-        isDragging: false,
-        draggedItemId: null,
-        offsetY: null,
-      },
-    }));
-  }
-
-  handlePointerDown({ id, offsetY }) {
-    timeoutId = setTimeout(this.startDrag.bind(this, id, offsetY), TIMEOUT_MS);
-  }
-
-  handlePointerUp(e) {
-    clearTimeout(timeoutId);
-
-    if (this.state.drag.isDragging) {
-      this.stopDrag();
-    }
-  }
-
-  handlePointerCancel(e) {
-    clearTimeout(timeoutId);
-
-    if (this.state.drag.isDragging) {
-      this.stopDrag();
-    }
-  }
-
-  handlePointerMove({ pageY, target: liDom, currentTarget: ulDom, e }) {
-    // logEvent(e);
-    if (!this.state.drag.isDragging) {
-      return;
-    }
-
-    const liDomRect = liDom.getBoundingClientRect();
-    const ulDomRect = ulDom.getBoundingClientRect();
-    const preferredY = pageY - ulDomRect.top - this.state.drag.offsetY;
-    const minTop = 0;
-    const maxTop = ulDomRect.height - liDomRect.height;
-    const top = clamp(preferredY, minTop, maxTop);
-
-    this.setState((prevState) => ({
-      items: prevState.items.map((item) => {
-        if (item.id === prevState.drag.draggedItemId) {
-          return Object.assign({}, item, {
-            top,
-          });
-        } else {
-          return item;
-        }
-      }),
-    }));
-
-    console.log(`Top: ${top}`);
-  }
-
   render() {
-    const title = this.state.drag.isDragging
-      ? "is dragging"
-      : "is not dragging";
+    const title = "Linda from Purcha$ing v18";
     const showCompleted = has(this.state, "showCompleted")
       ? this.state.showCompleted
       : true;
+    const notCompletedItems = this.state.items
+      .filter((item) => !item.isCompleted)
+      .sort((itemA, itemB) => itemA.orderId - itemB.orderId);
+    const completedItems = this.state.items
+      .filter((item) => item.isCompleted)
+      .sort((itemA, itemB) => itemA.orderId - itemB.orderId);
 
     return (
       <div className="App">
         <Header onReloadClick={this.handleReloadClick} title={title} />
         <ItemList
-          items={this.state.items}
+          items={notCompletedItems}
+          completedItems={completedItems}
           onValueChange={this.handleValueChange}
+          onOrderChange={this.handleOrderChange}
           onCheckClick={this.handleCheckClick}
           onBlur={this.handleItemBlur}
           onInputEnter={this.handleInputEnter}
           onAddItemClick={this.handleAddItemClick}
           onDeleteClick={this.handleDeleteItemClick}
           showCompleted={showCompleted}
-          onPointerDown={this.handlePointerDown}
-          onPointerUp={this.handlePointerUp}
-          onPointerCancel={this.handlePointerCancel}
-          onPointerMove={this.handlePointerMove}
         />
         <Toolbar
           onAddItemClick={this.handleAddItemClick}
