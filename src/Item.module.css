@@ -10,6 +10,8 @@
   padding-inline-end: 8px;
 
   background-color: white;
+
+  user-select: none;
 }
 
 .ItemCompleted {
@@ -33,10 +35,14 @@
   background-color: transparent;
 
   font-size: 16px;
+
+  user-select: none;
 }
 
 .field:focus {
   outline: none;
+
+  user-select: initial;
 }
 
 .textCompleted {
@@ -54,6 +60,8 @@
   padding: 0;
 
   background-color: transparent;
+
+  /* user-select: none; */
 }
 
 .Checked {
@@ -77,6 +85,7 @@
   background-color: transparent;
 
   cursor: pointer;
+  /* user-select: none; */
 }
 
 .DeleteIcon {

@@ -31,14 +31,15 @@ const Item = React.forwardRef((props, ref) => {
     }
   };
 
-  const handleInputFocus = (e) => {
-    console.log("handleInputFocus");
+  const handleInputFocus = (e, text) => {
+    console.log("handleInputFocus", text);
     if (props.onInputFocus) {
       props.onInputFocus();
     }
   };
 
-  const handleInputBlur = () => {
+  const handleInputBlur = (e, text) => {
+    console.log("handleInputBlur", text);
     if (props.onBlur) {
       props.onBlur({ id: props.id });
     }
@@ -89,7 +90,9 @@ const Item = React.forwardRef((props, ref) => {
       className={itemClassName()}
       ref={ref}
       style={props.itemStyle}
-      onPointerDown={(e) => props.onPointerDown(e, props.id, props.index)}
+      onPointerDown={(e) =>
+        props.onPointerDown(e, props.id, props.index, props.text)
+      }
     >
       {checkButton}
       <input
@@ -99,8 +102,8 @@ const Item = React.forwardRef((props, ref) => {
         onChange={handleValueChange}
         disabled={props.isCompleted ? true : false}
         autoFocus={props.isOpen}
-        onFocus={handleInputFocus}
-        onBlur={handleInputBlur}
+        onFocus={(e) => handleInputFocus(e, props.text)}
+        onBlur={(e) => handleInputBlur(e, props.text)}
         onKeyUp={handleKeyUp}
       ></input>
       {deleteButton}

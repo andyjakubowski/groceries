@@ -104,8 +104,8 @@ class ItemList extends React.Component {
     });
   }
 
-  handlePointerDown(e, itemId, itemIndex) {
-    console.log("handlePointerDown");
+  handlePointerDown(e, itemId, itemIndex, text) {
+    console.log(`handlePointerDown ${e.timeStamp}`, text);
     const offsetY = e.nativeEvent.offsetY;
     const { height, top } = getCoords(e.target);
     const args = {

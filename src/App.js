@@ -274,7 +274,7 @@ class App extends React.Component {
   }
 
   render() {
-    const title = "Linda from Purcha$ing v18";
+    const title = "Linda from Purcha$ing v19";
     const showCompleted = has(this.state, "showCompleted")
       ? this.state.showCompleted
       : true;

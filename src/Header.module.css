@@ -7,6 +7,8 @@
   padding-inline-end: 16px;
 
   background-color: white;
+
+  user-select: none;
 }
 
 .Heading {

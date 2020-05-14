@@ -13,4 +13,6 @@
   height: 56px;
 
   background-color: white;
+
+  user-select: none;
 }
