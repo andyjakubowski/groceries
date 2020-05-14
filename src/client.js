@@ -4,7 +4,7 @@ import { v4 as uuid } from "uuid";
 const HOST =
   process.env.NODE_ENV === "production"
     ? "linda-groceries.herokuapp.com"
-    : "localhost:3000";
+    : "192.168.2.102:9000";
 const API_URL =
   process.env.NODE_ENV === "production" ? `https://${HOST}` : `http://${HOST}`;
 const CABLE_URL =
