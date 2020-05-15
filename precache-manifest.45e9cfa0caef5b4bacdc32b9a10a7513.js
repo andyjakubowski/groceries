@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "f882a8c91b24633f77973bc9ec30a81d",
+    "revision": "f171fe38f2b9d49f10dcd0b59685895d",
     "url": "/groceries/index.html"
   },
   {
-    "revision": "d6a1c438a94cf9dff9d8",
-    "url": "/groceries/static/css/main.6c5b7559.chunk.css"
+    "revision": "339a3405a161ade095e9",
+    "url": "/groceries/static/css/main.93a263d9.chunk.css"
   },
   {
     "revision": "e8213e2cb05a2613f843",
@@ -16,7 +16,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/groceries/static/js/2.12cba506.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "d6a1c438a94cf9dff9d8",
+    "revision": "339a3405a161ade095e9",
     "url": "/groceries/static/js/main.35aa22ac.chunk.js"
   },
   {
