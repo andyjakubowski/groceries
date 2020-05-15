@@ -32,14 +32,14 @@ const Item = React.forwardRef((props, ref) => {
   };
 
   const handleInputFocus = (e, text) => {
-    console.log("handleInputFocus", text);
+    // console.log("handleInputFocus", text);
     if (props.onInputFocus) {
       props.onInputFocus();
     }
   };
 
   const handleInputBlur = (e, text) => {
-    console.log("handleInputBlur", text);
+    // console.log("handleInputBlur", text);
     if (props.onBlur) {
       props.onBlur({ id: props.id });
     }

@@ -7,6 +7,14 @@ let timeoutId;
 
 function move(array, prevIndex, nextIndex) {
   const arrayCopy = [...array];
+
+  if (prevIndex > array.length - 1) {
+    console.clear();
+    console.warn(`move(): No item to move at index ${prevIndex} in array:`);
+    console.table(array);
+    return arrayCopy;
+  }
+
   const item = arrayCopy.splice(prevIndex, 1)[0];
   arrayCopy.splice(nextIndex, 0, item);
   return arrayCopy;
@@ -39,7 +47,28 @@ function getCoords(element) {
   };
 }
 
+function getElementTop(domNode) {
+  const { top: elementTop } = getCoords(domNode);
+  return elementTop;
+}
+
 class ItemList extends React.Component {
+  static getDerivedStateFromProps(props, state) {
+    const draggedItem = props.items.find(
+      (item) => item.id === state.dragItemId
+    );
+    if (!draggedItem) {
+      return null;
+    }
+
+    const dragItemIndex = props.items.indexOf(draggedItem);
+    const listTop = getElementTop(state.listRef.current);
+    const dragItemTop = dragItemIndex * state.dragItemHeight + listTop;
+    const dragItemRelativeOffsetTop =
+      state.dragPointerPageY - dragItemTop - state.dragItemTopEdgeOffsetY;
+    return { dragItemIndex, dragItemTop, dragItemRelativeOffsetTop };
+  }
+
   constructor(props) {
     super(props);
 
@@ -49,17 +78,23 @@ class ItemList extends React.Component {
       dragItemHeight: null,
       dragItemTop: null,
       dragItemTopEdgeOffsetY: null,
+      dragItemIndex: null,
       dragItemRelativeOffsetTop: null,
+      dragPointerPageY: null,
+      listRef: React.createRef(),
     };
 
-    this.listRef = React.createRef();
+    // this.listRef = React.createRef();
     this.itemRefs = {};
-    console.log("ItemList constructor");
 
     this.handlePointerDown = this.handlePointerDown.bind(this);
     this.handlePointerUp = this.handlePointerUp.bind(this);
     this.handlePointerCancel = this.handlePointerCancel.bind(this);
     this.handlePointerMove = this.handlePointerMove.bind(this);
+  }
+
+  componentDidMount() {
+    // console.log("ItemList: componentDidMount");
   }
 
   reorderItems(items, currentIndex, newIndex) {
@@ -79,7 +114,7 @@ class ItemList extends React.Component {
     });
   }
 
-  startDrag({ itemId, offsetY, height, top, itemIndex }) {
+  startDrag({ itemId, offsetY, pageY, height, top, itemIndex }) {
     console.log("startDrag");
     this.setState({
       isDragging: true,
@@ -88,6 +123,7 @@ class ItemList extends React.Component {
       dragItemTop: top,
       dragItemTopEdgeOffsetY: offsetY,
       dragItemIndex: itemIndex,
+      dragPointerPageY: pageY,
     });
   }
 
@@ -101,19 +137,22 @@ class ItemList extends React.Component {
       dragItemTopEdgeOffsetY: null,
       dragItemIndex: null,
       dragItemRelativeOffsetTop: null,
+      dragPointerPageY: null,
     });
   }
 
   handlePointerDown(e, itemId, itemIndex, text) {
-    console.log(`handlePointerDown ${e.timeStamp}`, text);
-    const offsetY = e.nativeEvent.offsetY;
-    const { height, top } = getCoords(e.target);
+    console.log("handlePointerDown", text);
+    const pageY = e.pageY;
+    const { height, top } = getCoords(e.currentTarget);
+    const offsetY = pageY - top;
     const args = {
       itemId,
       itemIndex,
       height,
       top,
       offsetY,
+      pageY,
     };
     timeoutId = setTimeout(this.startDrag.bind(this, args), TIMEOUT_MS);
   }
@@ -144,11 +183,13 @@ class ItemList extends React.Component {
       dragItemTop,
       dragItemIndex,
     } = this.state;
-    const listElement = this.listRef.current;
-    const { top: listTop } = getCoords(listElement);
+
+    const listElement = this.state.listRef.current;
+    const listTop = getElementTop(listElement);
+    const dragPointerPageY = e.pageY;
 
     const itemTopRelativeToParent = getTopRelativeToParent(
-      e.pageY,
+      dragPointerPageY,
       listTop,
       dragItemTopEdgeOffsetY
     );
@@ -160,10 +201,11 @@ class ItemList extends React.Component {
 
     if (newIndex === dragItemIndex) {
       const dragItemRelativeOffsetTop =
-        e.pageY - dragItemTop - dragItemTopEdgeOffsetY;
+        dragPointerPageY - dragItemTop - dragItemTopEdgeOffsetY;
 
       this.setState({
         dragItemRelativeOffsetTop,
+        dragPointerPageY,
       });
     } else {
       // console.log(`index ${dragItemIndex} → ${newIndex}`);
@@ -185,6 +227,7 @@ class ItemList extends React.Component {
 
       this.setState({
         dragItemRelativeOffsetTop,
+        dragPointerPageY,
         dragItemTop: newDragItemTop,
         dragItemIndex: newIndex,
       });
@@ -225,12 +268,10 @@ class ItemList extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
+    // console.log("ItemList: componentDidUpdate");
     if (!snapshot) {
       return;
     }
-
-    console.log(`${Object.keys(this.itemRefs).length} itemRefs:`);
-    console.log(this.itemRefs);
 
     const prevRects = snapshot;
     const nextRects = this.getBoundingRects(this.props.items);
@@ -301,7 +342,7 @@ class ItemList extends React.Component {
 
     return (
       <ul
-        ref={this.listRef}
+        ref={this.state.listRef}
         className={styles.ItemList}
         onPointerUp={this.handlePointerUp}
         onPointerCancel={this.handlePointerCancel}
