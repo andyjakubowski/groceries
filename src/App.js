@@ -1,18 +1,19 @@
-import React from "react";
-import "./App.css";
-import Header from "./Header";
-import ItemList from "./ItemList";
-import Toolbar from "./Toolbar";
-import { v4 as uuid } from "uuid";
-import client from "./client";
-import { has } from "./utilities";
+import React from 'react';
+import './App.css';
+import Header from './Header';
+import OnLineStatusBanner from './OnLineStatusBanner';
+import ItemList from './ItemList';
+import Toolbar from './Toolbar';
+import { v4 as uuid } from 'uuid';
+import client from './client';
+import { has } from './utilities';
 
 const defaultState = {
   items: [],
   showCompleted: true,
 };
 
-const LOCAL_STORAGE_KEY = "groceries";
+const LOCAL_STORAGE_KEY = 'groceries';
 const getLocalStorageState = function getLocalStorageState() {
   const state = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY));
 
@@ -44,22 +45,33 @@ class App extends React.Component {
     this.handleReloadClick = this.handleReloadClick.bind(this);
     this.handleCompletedToggle = this.handleCompletedToggle.bind(this);
     this.handleOrderChange = this.handleOrderChange.bind(this);
+    this.handleOnLine = this.handleOnLine.bind(this);
   }
 
   componentDidMount() {
-    client.getItems((items) => {
-      this.setState({ items });
-    });
+    this.loadItems();
 
     client.subscribeToUpdates({
       onConnected: this.handleConnected,
       onDisconnected: this.handleDisconnected,
       onReceived: this.handleReceived,
     });
+
+    window.addEventListener('online', this.handleOnLine);
   }
 
   componentDidUpdate() {
     saveData(this.state);
+  }
+
+  loadItems() {
+    client.getItems((items) => {
+      this.setState({ items });
+    });
+  }
+
+  handleOnLine() {
+    this.loadItems();
   }
 
   handleConnected() {
@@ -87,26 +99,26 @@ class App extends React.Component {
     }
 
     switch (data.message_type) {
-      case "item_create":
+      case 'item_create':
         if (!this.hasItem(this.state.items, data.item.id)) {
           this.createItem(data.item);
         }
         break;
-      case "item_update":
+      case 'item_update':
         this.updateItem(data.item);
         break;
-      case "item_delete":
+      case 'item_delete':
         this.deleteItem(data.item.id);
         break;
       default:
-        console.log("Unrecognized message type");
+        console.log('Unrecognized message type');
     }
   }
 
   createItem({
     id = uuid(),
     orderId,
-    text = "",
+    text = '',
     isCompleted = false,
     isOpen = false,
   }) {
@@ -244,14 +256,12 @@ class App extends React.Component {
   }
 
   handleReloadClick() {
-    client.getItems((items) => {
-      this.setState({ items });
-    });
+    this.loadItems();
   }
 
   handleCompletedToggle() {
     this.setState((prevState) => {
-      if (has(prevState, "showCompleted")) {
+      if (has(prevState, 'showCompleted')) {
         return { showCompleted: !prevState.showCompleted };
       } else {
         return { showCompleted: false };
@@ -276,8 +286,8 @@ class App extends React.Component {
   }
 
   render() {
-    const title = "Linda from Purcha$ing v19";
-    const showCompleted = has(this.state, "showCompleted")
+    const title = 'Linda from Purcha$ing v20';
+    const showCompleted = has(this.state, 'showCompleted')
       ? this.state.showCompleted
       : true;
     const notCompletedItems = this.state.items
@@ -290,6 +300,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <Header onReloadClick={this.handleReloadClick} title={title} />
+        <OnLineStatusBanner />
         <ItemList
           items={notCompletedItems}
           completedItems={completedItems}

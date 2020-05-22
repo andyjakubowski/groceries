@@ -1,0 +1,22 @@
+.Banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+
+  /* font-weight: bolder; */
+}
+
+.OnLine {
+  composes: Banner;
+
+  color: green;
+  background-color: lightgreen;
+}
+
+.OffLine {
+  composes: Banner;
+
+  color: white;
+  background-color: #888;
+}
