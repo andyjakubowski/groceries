@@ -1,4 +1,4 @@
-importScripts("/groceries/precache-manifest.f6f689372bd0e21345d1bcc708ccfc2a.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+importScripts("/groceries/precache-manifest.933a0069513eba6adfad92956c14d0bc.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 console.log('👋👋 Hello from customServiceWorker.js!');
 
