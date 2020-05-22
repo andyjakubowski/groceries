@@ -46,6 +46,7 @@ class App extends React.Component {
     this.handleCompletedToggle = this.handleCompletedToggle.bind(this);
     this.handleOrderChange = this.handleOrderChange.bind(this);
     this.handleOnLine = this.handleOnLine.bind(this);
+    this.handleVisibilityChange = this.handleVisibilityChange.bind(this);
   }
 
   componentDidMount() {
@@ -58,6 +59,7 @@ class App extends React.Component {
     });
 
     window.addEventListener('online', this.handleOnLine);
+    document.addEventListener('visibilitychange', this.handleVisibilityChange);
   }
 
   componentDidUpdate() {
@@ -72,6 +74,12 @@ class App extends React.Component {
 
   handleOnLine() {
     this.loadItems();
+  }
+
+  handleVisibilityChange() {
+    if (document.visibilityState === 'visible') {
+      this.loadItems();
+    }
   }
 
   handleConnected() {
