@@ -1,6 +1,6 @@
 importScripts("/groceries/precache-manifest.f6f689372bd0e21345d1bcc708ccfc2a.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
-console.log('👋 Hello from customServiceWorker.js!');
+console.log('👋👋 Hello from customServiceWorker.js!');
 
 /* eslint-env es6 */
 /* eslint no-unused-vars: 0 */
@@ -11,6 +11,10 @@ importScripts('./lib/ServiceWorkerWare.js');
 // This line imports "localforage" to this context
 importScripts('./lib/localforage.js');
 
+// This file resides in /public, so I don’t have access to process.env.NODE_ENV
+// I test my production build locally on localhost, so I need a way to
+// target the production Action Cable server from "production localhost"
+const localhostProductionPort = 3010;
 const isLocalhost = Boolean(
   self.location.hostname === 'localhost' ||
     // [::1] is the IPv6 localhost address.
@@ -22,9 +26,15 @@ const isLocalhost = Boolean(
 );
 
 // Determine the api root URL
-const apiRoot = isLocalhost
-  ? 'http://192.168.2.102:9000'
-  : 'https://linda-groceries.herokuapp.com';
+const apiRoot = (function setApiRoot() {
+  if (isLocalhost && location.port == localhostProductionPort) {
+    return 'https://linda-groceries.herokuapp.com';
+  } else if (isLocalhost && location.port != localhostProductionPort) {
+    return 'http://192.168.2.102:9000';
+  } else if (!isLocalhost) {
+    return 'https://linda-groceries.herokuapp.com';
+  }
+})();
 
 // By using Mozilla's ServiceWorkerWare we can quickly setup some routes
 // for a _virtual server_. **It is convenient you review the
@@ -112,23 +122,6 @@ worker.get(
     new Response(null, {
       status: 400,
     })
-  )
-);
-
-worker.get(
-  root + 'api/quotations?*',
-  tryOrFallback(
-    new Response(
-      JSON.stringify([
-        {
-          text: 'You are offline and I know it well.',
-          author: 'The Service Worker Cookbook',
-          id: 1,
-          isSticky: true,
-        },
-      ]),
-      { headers: { 'Content-Type': 'application/json' } }
-    )
   )
 );
 
