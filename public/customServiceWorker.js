@@ -12,7 +12,6 @@ importScripts('./lib/localforage.js');
 // This file resides in /public, so I don’t have access to process.env.NODE_ENV
 // I test my production build locally on localhost, so I need a way to
 // target the production Action Cable server from "production localhost"
-const localhostProductionPort = 3010;
 const isLocalhost = Boolean(
   self.location.hostname === 'localhost' ||
     // [::1] is the IPv6 localhost address.
@@ -22,14 +21,17 @@ const isLocalhost = Boolean(
       /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
     )
 );
+const isDevHostname = location.hostname === 'groceries.andy';
+const localProductionPort = 3010;
+const isLocalProductionPort = location.port == localProductionPort;
 
 // Determine the api root URL
 const apiRoot = (function setApiRoot() {
-  if (isLocalhost && location.port == localhostProductionPort) {
+  if (isDevHostname && !isLocalProductionPort) {
+    return 'https://api.groceries.andy:9000';
+  } else if (isDevHostname && isLocalProductionPort) {
     return 'https://linda-groceries.herokuapp.com';
-  } else if (isLocalhost && location.port != localhostProductionPort) {
-    return 'http://192.168.2.102:9000';
-  } else if (!isLocalhost) {
+  } else if (!isDevHostname) {
     return 'https://linda-groceries.herokuapp.com';
   }
 })();
