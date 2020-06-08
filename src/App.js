@@ -46,7 +46,6 @@ class App extends React.Component {
     this.handleReloadClick = this.handleReloadClick.bind(this);
     this.handleCompletedToggle = this.handleCompletedToggle.bind(this);
     this.handleOrderChange = this.handleOrderChange.bind(this);
-    this.handleVisibilityChange = this.handleVisibilityChange.bind(this);
   }
 
   componentDidMount() {
@@ -55,8 +54,6 @@ class App extends React.Component {
       onDisconnected: this.handleDisconnected,
       onReceived: this.handleReceived,
     });
-
-    document.addEventListener('visibilitychange', this.handleVisibilityChange);
   }
 
   componentDidUpdate() {
@@ -67,12 +64,6 @@ class App extends React.Component {
     client.getItems((items) => {
       this.setState({ items });
     });
-  }
-
-  handleVisibilityChange() {
-    if (document.visibilityState === 'visible') {
-      // this.loadItems();
-    }
   }
 
   handleConnected() {
