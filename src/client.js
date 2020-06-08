@@ -64,7 +64,7 @@ export function getItems(success) {
 }
 
 export function createItem(item) {
-  const data = Object.assign({}, item, { clientId: this.id });
+  const data = Object.assign({}, item, { clientId: id });
   const request = new Request(`${API_URL}/items`, {
     method: 'post',
     headers: HEADERS,
@@ -74,7 +74,7 @@ export function createItem(item) {
 }
 
 export function updateItem(item) {
-  const data = Object.assign({}, item, { clientId: this.id });
+  const data = Object.assign({}, item, { clientId: id });
   const request = new Request(`${API_URL}/items/${item.id}`, {
     method: 'put',
     headers: HEADERS,
@@ -84,7 +84,7 @@ export function updateItem(item) {
 }
 
 export function updateManyItems(items) {
-  const data = { items, clientId: this.id };
+  const data = { items, clientId: id };
   const request = new Request(`${API_URL}/items/update_many`, {
     method: 'put',
     headers: HEADERS,
@@ -94,7 +94,7 @@ export function updateManyItems(items) {
 }
 
 export function deleteItem(id) {
-  const data = { clientId: this.id };
+  const data = { clientId: id };
   const request = new Request(`${API_URL}/items/${id}`, {
     method: 'delete',
     headers: HEADERS,
