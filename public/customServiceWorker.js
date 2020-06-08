@@ -55,19 +55,19 @@ function tryOrFallback(fakeResponse) {
   return function (req, res) {
     // If offline, enqueue and answer with the fake response.
     if (!navigator.onLine) {
-      console.log('No network availability, enqueuing');
+      // console.log('No network availability, enqueuing');
       return enqueue(req).then(function () {
         // As the fake response will be reused but Response objects
         // are one use only, we need to clone it each time we use it.
-        console.log('enqueue.then running, returning fakeResponse.clone()');
+        // console.log('enqueue.then running, returning fakeResponse.clone()');
         return fakeResponse.clone();
       });
     }
 
     // If online, flush the queue and answer from network.
-    console.log('Network available! Flushing queue.');
+    // console.log('Network available! Flushing queue.');
     return flushQueue().then(function () {
-      console.log('flushQueue finished.');
+      // console.log('flushQueue finished.');
       return fetch(req);
     });
   };
@@ -160,7 +160,7 @@ function flushQueue() {
     /* eslint no-param-reassign: 0 */
     queue = queue || [];
 
-    console.log('Queue', queue);
+    // console.log('Queue', queue);
 
     // If empty, nothing to do!
     if (!queue.length) {
@@ -168,7 +168,7 @@ function flushQueue() {
     }
 
     // Else, send the requests in order...
-    console.log('Sending ', queue.length, ' requests...');
+    // console.log('Sending ', queue.length, ' requests...');
     return sendInOrder(queue).then(function () {
       // **Requires error handling**. Actually, this is assuming all the requests
       // in queue are a success when reaching the Network. So it should empty the
@@ -185,7 +185,7 @@ function sendInOrder(requests) {
   // The `reduce()` chains one promise per serialized request, not allowing to
   // progress to the next one until completing the current.
   var sending = requests.reduce(function (prevPromise, serialized) {
-    console.log('Sending', serialized.method, serialized.url);
+    // console.log('Sending', serialized.method, serialized.url);
     return prevPromise.then(function () {
       return deserialize(serialized).then(function (request) {
         return fetch(request);
