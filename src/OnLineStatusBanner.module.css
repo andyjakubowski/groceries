@@ -22,3 +22,10 @@
   color: white;
   background-color: #888;
 }
+
+.TryingToConnect {
+  composes: Banner;
+
+  color: darkmagenta;
+  background-color: thistle;
+}

@@ -1,33 +1,29 @@
 import React from 'react';
 import styles from './OnLineStatusBanner.module.css';
 
-class OnLineStatusBanner extends React.Component {
-  constructor(props) {
-    super(props);
+function OnLineStatusBanner(props) {
+  let className;
+  let text;
 
-    this.state = {
-      isOnLine: navigator.onLine,
-    };
-
-    this.updateOnLineStatus = this.updateOnLineStatus.bind(this);
+  switch (props.status) {
+    case 'online':
+      className = styles.OnLine;
+      text = 'Online';
+      break;
+    case 'offline':
+      className = styles.OffLine;
+      text = 'Offline';
+      break;
+    case 'tryingToConnect':
+      className = styles.TryingToConnect;
+      text = 'Trying to connect...';
+      break;
+    default:
+      className = styles.OffLine;
+      text = 'Unknown connection status...';
   }
 
-  componentDidMount() {
-    window.addEventListener('online', this.updateOnLineStatus);
-    window.addEventListener('offline', this.updateOnLineStatus);
-  }
-
-  updateOnLineStatus() {
-    this.setState({
-      isOnLine: navigator.onLine,
-    });
-  }
-
-  render() {
-    const className = this.state.isOnLine ? styles.OnLine : styles.OffLine;
-    const text = this.state.isOnLine ? 'Online' : 'Offline';
-    return <div className={className}>{text}</div>;
-  }
+  return <div className={className}>{text}</div>;
 }
 
 export default OnLineStatusBanner;

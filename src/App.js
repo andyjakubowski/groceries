@@ -11,6 +11,7 @@ import { has } from './utilities';
 const defaultState = {
   items: [],
   showCompleted: true,
+  onLineStatus: navigator.onLine ? 'online' : 'offline',
 };
 
 const LOCAL_STORAGE_KEY = 'groceries';
@@ -46,6 +47,7 @@ class App extends React.Component {
     this.handleCompletedToggle = this.handleCompletedToggle.bind(this);
     this.handleOrderChange = this.handleOrderChange.bind(this);
     this.handleOnLine = this.handleOnLine.bind(this);
+    this.handleOffLine = this.handleOffLine.bind(this);
     this.handleVisibilityChange = this.handleVisibilityChange.bind(this);
   }
 
@@ -59,6 +61,7 @@ class App extends React.Component {
     });
 
     window.addEventListener('online', this.handleOnLine);
+    window.addEventListener('offline', this.handleOffLine);
     document.addEventListener('visibilitychange', this.handleVisibilityChange);
   }
 
@@ -74,6 +77,15 @@ class App extends React.Component {
 
   handleOnLine() {
     this.loadItems();
+    this.setState({
+      onLineStatus: 'online',
+    });
+  }
+
+  handleOffLine() {
+    this.setState({
+      onLineStatus: 'offline',
+    });
   }
 
   handleVisibilityChange() {
@@ -83,11 +95,17 @@ class App extends React.Component {
   }
 
   handleConnected() {
-    // console.log("Connected to ListChannel.");
+    console.log('Connected to Action Cable WebSocket.');
+    this.setState({
+      onLineStatus: 'online',
+    });
   }
 
   handleDisconnected() {
-    // console.log("Disconnected from ListChannel.");
+    console.log('Disconnected from Action Cable WebSocket.');
+    this.setState({
+      onLineStatus: 'tryingToConnect',
+    });
   }
 
   hasItem(items, id) {
@@ -308,7 +326,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <Header onReloadClick={this.handleReloadClick} title={title} />
-        <OnLineStatusBanner />
+        <OnLineStatusBanner status={this.state.onLineStatus} />
         <ItemList
           items={notCompletedItems}
           completedItems={completedItems}
