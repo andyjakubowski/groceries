@@ -5,7 +5,7 @@ import OnLineStatusBanner from './OnLineStatusBanner';
 import ItemList from './ItemList';
 import Toolbar from './Toolbar';
 import { v4 as uuid } from 'uuid';
-import client from './client';
+import * as client from './client';
 import { has } from './utilities';
 
 const defaultState = {
@@ -46,22 +46,16 @@ class App extends React.Component {
     this.handleReloadClick = this.handleReloadClick.bind(this);
     this.handleCompletedToggle = this.handleCompletedToggle.bind(this);
     this.handleOrderChange = this.handleOrderChange.bind(this);
-    this.handleOnLine = this.handleOnLine.bind(this);
-    this.handleOffLine = this.handleOffLine.bind(this);
     this.handleVisibilityChange = this.handleVisibilityChange.bind(this);
   }
 
   componentDidMount() {
-    this.loadItems();
-
     client.subscribeToUpdates({
       onConnected: this.handleConnected,
       onDisconnected: this.handleDisconnected,
       onReceived: this.handleReceived,
     });
 
-    window.addEventListener('online', this.handleOnLine);
-    window.addEventListener('offline', this.handleOffLine);
     document.addEventListener('visibilitychange', this.handleVisibilityChange);
   }
 
@@ -75,27 +69,15 @@ class App extends React.Component {
     });
   }
 
-  handleOnLine() {
-    this.loadItems();
-    this.setState({
-      onLineStatus: 'online',
-    });
-  }
-
-  handleOffLine() {
-    this.setState({
-      onLineStatus: 'offline',
-    });
-  }
-
   handleVisibilityChange() {
     if (document.visibilityState === 'visible') {
-      this.loadItems();
+      // this.loadItems();
     }
   }
 
   handleConnected() {
     console.log('Connected to Action Cable WebSocket.');
+    this.loadItems();
     this.setState({
       onLineStatus: 'online',
     });

@@ -10,13 +10,9 @@ function OnLineStatusBanner(props) {
       className = styles.OnLine;
       text = 'Online';
       break;
-    case 'offline':
-      className = styles.OffLine;
-      text = 'Offline';
-      break;
     case 'tryingToConnect':
       className = styles.TryingToConnect;
-      text = 'Trying to connect...';
+      text = 'Connecting to server...';
       break;
     default:
       className = styles.OffLine;
