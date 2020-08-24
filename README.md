@@ -20,3 +20,7 @@
 - run the [Groceries API server](https://github.com/andyjakubowski/groceries_api): `rails s -b 'ssl://api.groceries.andy:9000?key=config/ssl/api.groceries.andy.key&cert=config/ssl/api.groceries.andy.crt'`
 - run this React client app: `yarn start`
 - you should now be able to access the app at `https://groceries.andy:3000/`
+
+## Deployment
+
+- `yarn deploy` will deploy the current branch to GitHub Pages
