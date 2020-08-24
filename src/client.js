@@ -18,7 +18,7 @@ const HEADERS = {
   Accept: 'application/json',
   'Content-Type': 'application/json',
 };
-const FETCH_THROTTLE_MS = 1000;
+const FETCH_THROTTLE_MS = 3000;
 const consumer = createConsumer(CABLE_URL);
 export const id = uuid();
 let actionCableStatus = 'disconnected';
