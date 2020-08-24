@@ -1,6 +1,7 @@
 import { createConsumer } from '@rails/actioncable';
 import { v4 as uuid } from 'uuid';
 import localforage from 'localforage';
+import throttle from 'lodash/throttle';
 
 const HOST =
   process.env.NODE_ENV === 'production'
@@ -17,6 +18,7 @@ const HEADERS = {
   Accept: 'application/json',
   'Content-Type': 'application/json',
 };
+const FETCH_THROTTLE_MS = 1000;
 const consumer = createConsumer(CABLE_URL);
 export const id = uuid();
 let actionCableStatus = 'disconnected';
@@ -112,9 +114,11 @@ function fetchOrEnqueue(request) {
     console.log('AC disconnected, enqueueing request.');
     enqueue(request);
   } else {
-    fetch(request);
+    throttledFetch(request);
   }
 }
+
+const throttledFetch = throttle(fetch, FETCH_THROTTLE_MS);
 
 // By using Mozilla's localforage db wrapper, we can count on
 // a fast setup for a versatile key-value database. We use
