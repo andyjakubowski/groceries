@@ -119,8 +119,6 @@ function fetchOrEnqueue(request) {
   }
 }
 
-const throttledFetch = throttle(fetch, REQUEST_THROTTLE_MS);
-
 const getThrottledFetchOrEnqueue = (function makeGetThrottledFetchOrEnqueue() {
   const throttledFunctions = {};
 
