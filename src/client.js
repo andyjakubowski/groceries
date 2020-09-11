@@ -2,6 +2,7 @@ import { createConsumer } from '@rails/actioncable';
 import { v4 as uuid } from 'uuid';
 import localforage from 'localforage';
 import throttle from 'lodash/throttle';
+import { has } from './utilities';
 
 const HOST =
   process.env.NODE_ENV === 'production'
@@ -18,7 +19,7 @@ const HEADERS = {
   Accept: 'application/json',
   'Content-Type': 'application/json',
 };
-const FETCH_THROTTLE_MS = 3000;
+const REQUEST_THROTTLE_MS = 1000;
 const consumer = createConsumer(CABLE_URL);
 export const id = uuid();
 let actionCableStatus = 'disconnected';
@@ -82,7 +83,7 @@ export function updateItem(item) {
     headers: HEADERS,
     body: JSON.stringify(data),
   });
-  fetchOrEnqueue(request);
+  getThrottledFetchOrEnqueue(item.id)(request);
 }
 
 export function updateManyItems(items) {
@@ -114,11 +115,30 @@ function fetchOrEnqueue(request) {
     console.log('AC disconnected, enqueueing request.');
     enqueue(request);
   } else {
-    throttledFetch(request);
+    fetch(request);
   }
 }
 
-const throttledFetch = throttle(fetch, FETCH_THROTTLE_MS);
+const throttledFetch = throttle(fetch, REQUEST_THROTTLE_MS);
+
+const getThrottledFetchOrEnqueue = (function makeGetThrottledFetchOrEnqueue() {
+  const throttledFunctions = {};
+
+  return function getThrottledFetchOrEnqueue(itemId) {
+    const itemIdString = String(itemId);
+
+    if (has(throttledFunctions, itemIdString)) {
+      return throttledFunctions[itemIdString];
+    } else {
+      const newThrottledFunction = throttle(
+        fetchOrEnqueue,
+        REQUEST_THROTTLE_MS
+      );
+      throttledFunctions[itemIdString] = newThrottledFunction;
+      return newThrottledFunction;
+    }
+  };
+})();
 
 // By using Mozilla's localforage db wrapper, we can count on
 // a fast setup for a versatile key-value database. We use
