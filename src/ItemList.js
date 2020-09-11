@@ -1,6 +1,6 @@
-import React from "react";
-import Item from "./Item";
-import styles from "./ItemList.module.css";
+import React from 'react';
+import Item from './Item';
+import styles from './ItemList.module.css';
 
 const TIMEOUT_MS = 500;
 let timeoutId;
@@ -115,7 +115,7 @@ class ItemList extends React.Component {
   }
 
   startDrag({ itemId, offsetY, pageY, height, top, itemIndex }) {
-    console.log("startDrag");
+    // console.log('startDrag');
     this.setState({
       isDragging: true,
       dragItemId: itemId,
@@ -128,7 +128,7 @@ class ItemList extends React.Component {
   }
 
   stopDrag() {
-    console.log("stopDrag");
+    // console.log('stopDrag');
     this.setState({
       isDragging: false,
       dragItemId: null,
@@ -142,7 +142,7 @@ class ItemList extends React.Component {
   }
 
   handlePointerDown(e, itemId, itemIndex, text) {
-    console.log("handlePointerDown", text);
+    // console.log("handlePointerDown", text);
     const pageY = e.pageY;
     const { height, top } = getCoords(e.currentTarget);
     const offsetY = pageY - top;
@@ -288,10 +288,10 @@ class ItemList extends React.Component {
       const deltaY = prevRect.top - nextRect.top;
       requestAnimationFrame(() => {
         domNode.style.transform = `translate(0, ${deltaY}px)`;
-        domNode.style.transition = "transform 0s";
+        domNode.style.transition = 'transform 0s';
         requestAnimationFrame(() => {
-          domNode.style.transform = "";
-          domNode.style.transition = "transform 300ms";
+          domNode.style.transform = '';
+          domNode.style.transition = 'transform 300ms';
         });
       });
     }
