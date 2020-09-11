@@ -1,26 +1,28 @@
 {
   "files": {
-    "main.css": "/groceries/static/css/main.f973cfa2.chunk.css",
-    "main.js": "/groceries/static/js/main.eef58234.chunk.js",
-    "main.js.map": "/groceries/static/js/main.eef58234.chunk.js.map",
+    "main.css": "/groceries/static/css/main.3a4ffd9b.chunk.css",
+    "main.js": "/groceries/static/js/main.ca595794.chunk.js",
+    "main.js.map": "/groceries/static/js/main.ca595794.chunk.js.map",
     "runtime-main.js": "/groceries/static/js/runtime-main.fe436c39.js",
     "runtime-main.js.map": "/groceries/static/js/runtime-main.fe436c39.js.map",
-    "static/js/2.8ca45566.chunk.js": "/groceries/static/js/2.8ca45566.chunk.js",
-    "static/js/2.8ca45566.chunk.js.map": "/groceries/static/js/2.8ca45566.chunk.js.map",
+    "static/js/2.5cbb1e65.chunk.js": "/groceries/static/js/2.5cbb1e65.chunk.js",
+    "static/js/2.5cbb1e65.chunk.js.map": "/groceries/static/js/2.5cbb1e65.chunk.js.map",
     "index.html": "/groceries/index.html",
-    "precache-manifest.bdf7e41a4c2a53a06e2e54a718250e19.js": "/groceries/precache-manifest.bdf7e41a4c2a53a06e2e54a718250e19.js",
+    "precache-manifest.a4dec229b7b1095ee52be1bbfd02eb2a.js": "/groceries/precache-manifest.a4dec229b7b1095ee52be1bbfd02eb2a.js",
     "service-worker.js": "/groceries/service-worker.js",
-    "static/css/main.f973cfa2.chunk.css.map": "/groceries/static/css/main.f973cfa2.chunk.css.map",
-    "static/js/2.8ca45566.chunk.js.LICENSE.txt": "/groceries/static/js/2.8ca45566.chunk.js.LICENSE.txt",
+    "static/css/main.3a4ffd9b.chunk.css.map": "/groceries/static/css/main.3a4ffd9b.chunk.css.map",
+    "static/js/2.5cbb1e65.chunk.js.LICENSE.txt": "/groceries/static/js/2.5cbb1e65.chunk.js.LICENSE.txt",
     "static/media/checked.cc96fd33.svg": "/groceries/static/media/checked.cc96fd33.svg",
     "static/media/delete.1cf2698b.svg": "/groceries/static/media/delete.1cf2698b.svg",
+    "static/media/ItemList.module.css": "/groceries/static/media/pumpkin-394.543d2730.png",
     "static/media/reload.c10736c1.svg": "/groceries/static/media/reload.c10736c1.svg",
+    "static/media/title.793e38a5.svg": "/groceries/static/media/title.793e38a5.svg",
     "static/media/unchecked.6203d88c.svg": "/groceries/static/media/unchecked.6203d88c.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.fe436c39.js",
-    "static/js/2.8ca45566.chunk.js",
-    "static/css/main.f973cfa2.chunk.css",
-    "static/js/main.eef58234.chunk.js"
+    "static/js/2.5cbb1e65.chunk.js",
+    "static/css/main.3a4ffd9b.chunk.css",
+    "static/js/main.ca595794.chunk.js"
   ]
 }
