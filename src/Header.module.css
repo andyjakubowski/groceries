@@ -1,11 +1,8 @@
 .Header {
   box-sizing: border-box;
-  height: 64px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-inline-start: 16px;
-  padding-inline-end: 16px;
 
   background-color: white;
 
