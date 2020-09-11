@@ -5,8 +5,21 @@
 
   margin: 0;
   padding: 0;
+  padding-block-end: 256px;
 
   list-style: none;
+
+  background-image: url('./pumpkin-197.png');
+  background-image: -webkit-image-set(
+    url('./pumpkin-197.png') 1x,
+    url('./pumpkin-394.png') 2x
+  );
+  background-image: image-set(
+    url('./pumpkin-197.png') 1x,
+    url('./pumpkin-394.png') 2x
+  );
+  background-repeat: no-repeat;
+  background-position: bottom 84px center;
 }
 
 /* Positioning */
