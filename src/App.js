@@ -8,6 +8,8 @@ import { v4 as uuid } from 'uuid';
 import * as client from './client';
 import { has } from './utilities';
 
+const APP_TITLE = 'Linda v22';
+
 const defaultState = {
   items: [],
   showCompleted: true,
@@ -285,7 +287,7 @@ class App extends React.Component {
   }
 
   render() {
-    const title = 'Linda v21';
+    const title = APP_TITLE;
     const showCompleted = has(this.state, 'showCompleted')
       ? this.state.showCompleted
       : true;

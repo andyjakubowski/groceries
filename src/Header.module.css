@@ -1,6 +1,6 @@
 .Header {
   box-sizing: border-box;
-  border-block-end: 4px dashed tomato;
+  height: 64px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -15,6 +15,7 @@
 .Heading {
   font-size: 24px;
   text-align: center;
+  display: none;
 }
 
 .ReloadButton {
