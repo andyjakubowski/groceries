@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "360830c585b0d1b0a5b291fee39e7146",
+    "revision": "fe2ae174c23922a5aa0749ec6bbfccbf",
     "url": "/groceries/index.html"
   },
   {
-    "revision": "69802c0d5f44c8650a84",
-    "url": "/groceries/static/css/main.269c9584.chunk.css"
+    "revision": "7b1f791142cd93c82d2e",
+    "url": "/groceries/static/css/main.c6971b47.chunk.css"
   },
   {
     "revision": "c02b671d85e82f308de0",
@@ -16,7 +16,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/groceries/static/js/2.84da497a.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "69802c0d5f44c8650a84",
+    "revision": "7b1f791142cd93c82d2e",
     "url": "/groceries/static/js/main.858edcae.chunk.js"
   },
   {
@@ -32,12 +32,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/groceries/static/media/delete.1cf2698b.svg"
   },
   {
-    "revision": "c3f59c8ff27d52818386625d16e24ffa",
-    "url": "/groceries/static/media/pumpkin-197.c3f59c8f.png"
+    "revision": "016df15e04f2eb416f82dff7570cb8f9",
+    "url": "/groceries/static/media/happy-piggy-197.016df15e.png"
   },
   {
-    "revision": "543d2730544eac4c851da36290d6f4f3",
-    "url": "/groceries/static/media/pumpkin-394.543d2730.png"
+    "revision": "90d115a909a6e9633c8ad3a388b529fb",
+    "url": "/groceries/static/media/happy-piggy-394.90d115a9.png"
   },
   {
     "revision": "c10736c104da62ece12132054b95e588",
