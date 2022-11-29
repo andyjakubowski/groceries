@@ -24,3 +24,7 @@ yarn-error.log*
 groceries.code-workspace
 groceries.sketch
 react_book_notes.txt
+
+# Ignore the SSL certificates you generated to develop locally with HTTPS
+/ssl/*
+!/ssl/.keep
