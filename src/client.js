@@ -9,10 +9,10 @@ const isHttps =
   process.env.REACT_APP_HTTPS === 'true';
 const HOST =
   process.env.NODE_ENV === 'production'
-    ? 'linda-groceries.herokuapp.com'
+    ? process.env.REACT_APP_API_HOST_PRODUCTION
     : isHttps
-    ? 'api.groceries.andy:9000'
-    : 'localhost:9000';
+    ? process.env.REACT_APP_API_HOST_DEVELOPMENT_HTTPS
+    : process.env.REACT_APP_API_HOST_DEVELOPMENT;
 const API_URL = isHttps ? `https://${HOST}` : `http://${HOST}`;
 const CABLE_URL = isHttps ? `wss://${HOST}/cable` : `ws://${HOST}/cable`;
 const HEADERS = {
