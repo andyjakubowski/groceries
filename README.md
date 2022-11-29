@@ -2,14 +2,15 @@
 
 [![Open Demo](public/open-demo-button.svg)](https://andyjakubowski.github.io/groceries/)
 
-A real time, offline-capable grocery list built in React using [Create React App](https://github.com/facebook/create-react-app). Real time syncing is done with a Rails Action Cable JavaScript client library. Offline storage is implemented with browser Local Storage. Offline edits are stored in a queue that gets flushed when the client comes back online.
+A real time, offline-capable grocery list built in React using [Create React App](https://github.com/facebook/create-react-app).
 
-Backed by [`groceries_api`](https://github.com/andyjakubowski/groceries_api), a Rails app. `groceries_api` uses Postgres for persistence and Redis to enable the real time syncing of grocery list items.
+Backed by [`groceries_api`](https://github.com/andyjakubowski/groceries_api), an API-only Rails app. `groceries_api` uses Postgres for persistence and Redis to enable the real time syncing of grocery list items.
 
 ## How it Works
 
 - Online status is derived based on whether the Groceries API WebSocket connection remains open. If we stop hearing from the Groceries API, we’ll indicate in the UI that there’s no connection.
-- Offline functionality is implemented with a queue. When write request to the Groceries API doesn’t succeed because the device is offline, it gets added to the queue. When the device reconnects, the queue gets flushed First In First Out.
+- Offline functionality is implemented with a queue. When write request to the Groceries API doesn’t succeed because the device is offline, it gets added to the queue. When the device reconnects, the queue gets flushed _First In, First Out_.
+- Any changes you make while offline are stored in the browser’s Local Storage.
 
 ## Play with the [live demo](https://andyjakubowski.github.io/groceries/)
 
