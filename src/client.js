@@ -4,17 +4,17 @@ import localforage from 'localforage';
 import throttle from 'lodash/throttle';
 import { has } from './utilities';
 
+const isHttps =
+  process.env.NODE_ENV === 'production' ||
+  process.env.REACT_APP_HTTPS === 'true';
 const HOST =
   process.env.NODE_ENV === 'production'
     ? 'linda-groceries.herokuapp.com'
-    : 'api.groceries.andy:9000';
-const API_URL =
-  process.env.NODE_ENV === 'production' ? `https://${HOST}` : `https://${HOST}`;
-// const API_URL = '';
-const CABLE_URL =
-  process.env.NODE_ENV === 'production'
-    ? `wss://${HOST}/cable`
-    : `wss://${HOST}/cable`;
+    : isHttps
+    ? 'api.groceries.andy:9000'
+    : 'localhost:9000';
+const API_URL = isHttps ? `https://${HOST}` : `http://${HOST}`;
+const CABLE_URL = isHttps ? `wss://${HOST}/cable` : `ws://${HOST}/cable`;
 const HEADERS = {
   Accept: 'application/json',
   'Content-Type': 'application/json',
