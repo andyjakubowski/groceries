@@ -1,7 +1,5 @@
 # Linda Groceries
 
-[![Open Demo](public/open-demo-button.svg)](https://andyjakubowski.github.io/groceries/)
-
 A real time, offline-capable grocery list built in React using [Create React App](https://github.com/facebook/create-react-app).
 
 Backed by [`groceries_api`](https://github.com/andyjakubowski/groceries_api), an API-only Rails app. `groceries_api` uses Postgres for persistence and Redis to enable the real time syncing of grocery list items.
@@ -11,22 +9,6 @@ Backed by [`groceries_api`](https://github.com/andyjakubowski/groceries_api), an
 - Online status is derived based on whether the Groceries API WebSocket connection remains open. If we stop hearing from the Groceries API, we’ll indicate in the UI that there’s no connection.
 - Offline functionality is implemented with a queue. When write request to the Groceries API doesn’t succeed because the device is offline, it gets added to the queue. When the device reconnects, the queue gets flushed _First In, First Out_.
 - Any changes you make while offline are stored in the browser’s Local Storage.
-
-## Play with the [live demo](https://andyjakubowski.github.io/groceries/)
-
-The demo is just one global grocery list!
-
-Try some of these steps to check it out:
-
-- Open the [demo](https://andyjakubowski.github.io/groceries/) in one tab.
-- Open the [demo](https://andyjakubowski.github.io/groceries/) again on another device or in another tab.
-- Create a new item in one tab. It should appear in real time in the other tab.
-- Update, delete, mark items as done. It will sync across tabs and devices in real time.
-- Disable the Wi-Fi on your device and wait for 5 to 10 seconds. The green _Online_ status bar should change to a purple _Connecting to server..._ bar.
-- With the Wi-Fi disabled:
-  - Add a couple of new items. Close this tab.
-  - Reopen the tab with the Wi-Fi still disabled. Your items are still there! They’re stored in your browser’s Local Storage.
-- Re-enable the Wi-Fi. The offline-only items will sync with the server, and appear on any other devices you had open.
 
 ## Installation and Usage
 
